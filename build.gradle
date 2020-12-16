@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'be.ugent.idlab.loreo'
+version '1.0-CacheSizeTest'
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'be.ugent.idlab.loreo.examples.CacheSizeTest'
+        )
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'net.sourceforge.owlapi', name: 'org.semanticweb.hermit', version: '1.4.5.519'
+    compile group: 'com.github.dpaukov', name: 'combinatoricslib3', version: '3.0.0'
+
+}
+
