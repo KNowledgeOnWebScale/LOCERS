@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://knowman.idlab.ugent.be/example#"
+     xml:base="http://knowman.idlab.ugent.be/example"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:example="http://knowman.idlab.ugent.be/example#">
+    <owl:Ontology rdf:about="http://knowman.idlab.ugent.be/example"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#hasObject -->
+
+    <owl:ObjectProperty rdf:about="http://knowman.idlab.ugent.be/example#hasObject">
+        <rdfs:range rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#hasSupPart -->
+
+    <owl:ObjectProperty rdf:about="http://knowman.idlab.ugent.be/example#hasSupPart">
+        <rdfs:range rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#BackSupport -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#BackSupport">
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Chair -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Chair">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasSupPart"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#BackSupport"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasSupPart"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Leg -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Leg">
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#LivingRoom -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#LivingRoom">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasObject"/>
+                <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#Chair"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#LivingRoom2 -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#LivingRoom2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasObject"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#SubChair"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasObject"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#Table"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Object -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Object"/>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Place -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Place"/>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#SubChair -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#SubChair">
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Chair"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Surface -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Surface">
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#Table -->
+
+    <owl:Class rdf:about="http://knowman.idlab.ugent.be/example#Table">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasSupPart"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://knowman.idlab.ugent.be/example#hasSupPart"/>
+                        <owl:someValuesFrom rdf:resource="http://knowman.idlab.ugent.be/example#Surface"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#backSupport -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#backSupport">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#BackSupport"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#chair -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#chair">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Object"/>
+        <hasSupPart rdf:resource="http://knowman.idlab.ugent.be/example#backSupport"/>
+        <hasSupPart rdf:resource="http://knowman.idlab.ugent.be/example#leg2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#leg1 -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#leg1">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#leg2 -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#leg2">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#leg3 -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#leg3">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#leg4 -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#leg4">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Leg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#livingRoom -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#livingRoom">
+        <hasObject rdf:resource="http://knowman.idlab.ugent.be/example#chair"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#livingRoom2 -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#livingRoom2">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#LivingRoom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#surface -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#surface">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Surface"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://knowman.idlab.ugent.be/example#table -->
+
+    <owl:NamedIndividual rdf:about="http://knowman.idlab.ugent.be/example#table">
+        <rdf:type rdf:resource="http://knowman.idlab.ugent.be/example#Table"/>
+        <hasSupPart rdf:resource="http://knowman.idlab.ugent.be/example#leg1"/>
+        <hasSupPart rdf:resource="http://knowman.idlab.ugent.be/example#surface"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
