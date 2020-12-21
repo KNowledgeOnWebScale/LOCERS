@@ -3,14 +3,14 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
-group 'be.ugent.idlab.loreo'
-version '1.0-CacheSizeTest'
+group 'be.ugent.idlab.locers'
+version '0.0.1'
 
 
 jar {
     manifest {
         attributes(
-                'Main-Class': 'be.ugent.idlab.loreo.examples.CacheSizeTest'
+                'Main-Class': 'be.ugent.idlab.locers.examples.OWL2BenchTest'
         )
     }
     from {
