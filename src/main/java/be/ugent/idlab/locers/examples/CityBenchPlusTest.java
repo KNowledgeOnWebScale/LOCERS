@@ -50,7 +50,7 @@ public class CityBenchPlusTest {
 		OWLOntologyManager manager = OWLManager.createConcurrentOWLOntologyManager();
 
 
-		String path = "/Users/psbonte/Documents/Documents/TestWorkspace/CityBenchPlus/resource/";
+		String path = "resources/";
 		if(args.length >= 1) {
 			path = args[0];
 		}		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File(path + "officerepo.owl"));
@@ -72,7 +72,7 @@ public class CityBenchPlusTest {
 			}
 
 		});
-		String fileName = path+"/AarhusTrafficData182955.stream";
+		String fileName = path+"/Traffic.stream";
 		LOCERSMaterializeCache cache = new LOCERSMaterializeCache();
 		cache.init(ontology);
 		cache.setCacheStructure(new MaterializeCacheStructure());

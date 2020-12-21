@@ -29,8 +29,8 @@ public class OWL2BenchTest {
 
 	public static void main(String[] args) throws Exception {
 
-		String path="/Users/psbonte/Documents/Documents/TestWorkspace/OWL2BenchStream/resource/OWL2Bench/";
-		int num_students = 100;
+		String path="resources/";
+		int num_students = 1;
 		if(args.length >= 2) {
 			path = args[0];
 			num_students = Integer.parseInt(args[1]);
