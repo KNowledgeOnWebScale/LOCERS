@@ -3,6 +3,7 @@
  */
 package be.ugent.idlab.locers.examples;
 
+import be.ugent.idlab.locers.cache.HashMaterializedCacheStructure;
 import be.ugent.idlab.locers.cache.LOCERSMaterializeCache;
 import be.ugent.idlab.locers.cache.LOCERSStructureCache;
 import be.ugent.idlab.locers.cache.MaterializeCacheStructure;
@@ -22,10 +23,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @author pbonte
- *
- */
+
 public class CityBenchPlusTest {
 
 	static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -47,6 +45,7 @@ public class CityBenchPlusTest {
 	public static void main(String[] args) throws Exception {
 
 
+		Thread.sleep(10000);
 		OWLOntologyManager manager = OWLManager.createConcurrentOWLOntologyManager();
 
 
@@ -75,12 +74,13 @@ public class CityBenchPlusTest {
 		String fileName = path+"/Traffic.stream";
 		LOCERSMaterializeCache cache = new LOCERSMaterializeCache();
 		cache.init(ontology);
-		cache.setCacheStructure(new MaterializeCacheStructure());
+		cache.setCacheStructure(new HashMaterializedCacheStructure());
 
 		// read file into stream, try-with-resources
 		try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+			//stream.map(p -> parseEvent(cache,manager,mapper.map(p),ontology)).limit(1000).forEach(System.out::println);
 
-			stream.map(p -> parseEvent(cache,manager,mapper.map(p),ontology)).limit(100).forEach(System.out::println);
+			stream.limit(10).forEach(p -> System.out.println(parseEvent(cache,manager,mapper.map(p),ontology)));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -106,7 +106,9 @@ public class CityBenchPlusTest {
 			long time1 = System.currentTimeMillis();
 
 			Set<OWLAxiom> result2 = cache.check(event);
+			//Set<OWLAxiom> result2 = new HashSet<>();
 			//manager.saveOntology(ont, new TurtleDocumentFormat(),IRI.create(new File("test.owl").toURI()));
+			System.out.println("Memory: "+MemUtils.getReallyUsedMemory());
 
 			//remove axioms
 			manager.removeAxioms(ont, event);
@@ -114,6 +116,8 @@ public class CityBenchPlusTest {
 			System.out.println("Time:\t"+finalTime);
 			System.out.println(result2);
 			System.out.println("Size:\t"+result2.size());
+			System.out.println("Cache size: " +cache.getSize());
+			manager.removeOntology(eventOnt);
 			return result2;
 
 

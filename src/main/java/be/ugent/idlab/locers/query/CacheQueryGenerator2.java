@@ -10,10 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author pbonte
- *
- */
+
 public class CacheQueryGenerator2 {
 
 	public static CacheQuery generate(Set<OWLAxiom> axioms, Set<OWLNamedIndividual> statics){

@@ -1,7 +1,7 @@
-package be.ugent.idlab.loreo.test;
+package be.ugent.idlab.locers.test;
 
-import be.ugent.idlab.loreo.cache.LOREOCache;
-import be.ugent.idlab.loreo.cache.LOREONaiveCache;
+import be.ugent.idlab.locers.cache.LOCERSCache;
+import be.ugent.idlab.locers.cache.LOCERSNaiveCache;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -10,10 +10,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * @author pbonte
- *
- */
+
 public class CacheTest {
 
 	@Test
@@ -22,7 +19,7 @@ public class CacheTest {
 		OWLDataFactory dataFactory = manager.getOWLDataFactory();
 		File inputOntologyFile = new File("resources/example.owl");
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
-		LOREOCache cache = new LOREONaiveCache();
+		LOCERSCache cache = new LOCERSNaiveCache();
 		cache.init(ontology);
 		OWLObjectSomeValuesFrom objRestiriction = dataFactory.getOWLObjectSomeValuesFrom(dataFactory.getOWLObjectProperty("http://knowman.idlab.ugent.be/example#hasObject"), dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Chair"));
 		OWLClass test = dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Test");

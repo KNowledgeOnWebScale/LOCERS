@@ -1,0 +1,131 @@
+@prefix : <urn:unnamed:ontology#ont17699769882075> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <urn:unnamed:ontology#ont17699769882075> .
+
+<urn:unnamed:ontology#ont17699769882075> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://benchmark/OWL2Bench#enrollFor
+<http://benchmark/OWL2Bench#enrollFor> rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#enrollIn
+<http://benchmark/OWL2Bench#enrollIn> rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#hasMajor
+<http://benchmark/OWL2Bench#hasMajor> rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#isAdvisedBy
+<http://benchmark/OWL2Bench#isAdvisedBy> rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#takesCourse
+<http://benchmark/OWL2Bench#takesCourse> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://benchmark/OWL2Bench#hasAge
+<http://benchmark/OWL2Bench#hasAge> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasEmailAddress
+<http://benchmark/OWL2Bench#hasEmailAddress> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasFirstName
+<http://benchmark/OWL2Bench#hasFirstName> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasID
+<http://benchmark/OWL2Bench#hasID> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasLastName
+<http://benchmark/OWL2Bench#hasLastName> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasName
+<http://benchmark/OWL2Bench#hasName> rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasTelephone
+<http://benchmark/OWL2Bench#hasTelephone> rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://benchmark/OWL2Bench#Woman
+<http://benchmark/OWL2Bench#Woman> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://benchmark/OWL2Bench#HumanResourceManagement
+<http://benchmark/OWL2Bench#HumanResourceManagement> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0
+<http://benchmark/OWL2Bench#U0C0D0> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP3
+<http://benchmark/OWL2Bench#U0C0D0FP3> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UG
+<http://benchmark/OWL2Bench#U0C0D0UG> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC0
+<http://benchmark/OWL2Bench#U0C0D0UGC0> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC3
+<http://benchmark/OWL2Bench#U0C0D0UGC3> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC4
+<http://benchmark/OWL2Bench#U0C0D0UGC4> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC7
+<http://benchmark/OWL2Bench#U0C0D0UGC7> rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGS0_92f5bd76-007a-4deb-8e86-e6d72a85a536
+<http://benchmark/OWL2Bench#U0C0D0UGS0_92f5bd76-007a-4deb-8e86-e6d72a85a536> rdf:type owl:NamedIndividual ,
+                                                                                      <http://benchmark/OWL2Bench#Woman> ;
+                                                                             <http://benchmark/OWL2Bench#enrollFor> <http://benchmark/OWL2Bench#U0C0D0UG> ;
+                                                                             <http://benchmark/OWL2Bench#enrollIn> <http://benchmark/OWL2Bench#U0C0D0> ;
+                                                                             <http://benchmark/OWL2Bench#hasMajor> <http://benchmark/OWL2Bench#HumanResourceManagement> ;
+                                                                             <http://benchmark/OWL2Bench#isAdvisedBy> <http://benchmark/OWL2Bench#U0C0D0FP3> ;
+                                                                             <http://benchmark/OWL2Bench#takesCourse> <http://benchmark/OWL2Bench#U0C0D0UGC0> ,
+                                                                                                                      <http://benchmark/OWL2Bench#U0C0D0UGC3> ,
+                                                                                                                      <http://benchmark/OWL2Bench#U0C0D0UGC4> ,
+                                                                                                                      <http://benchmark/OWL2Bench#U0C0D0UGC7> ;
+                                                                             <http://benchmark/OWL2Bench#hasAge> "x" ;
+                                                                             <http://benchmark/OWL2Bench#hasEmailAddress> "U0C0D0UGS0@bench.com" ;
+                                                                             <http://benchmark/OWL2Bench#hasFirstName> "Jahzara" ;
+                                                                             <http://benchmark/OWL2Bench#hasID> "U0C0D0UGS0" ;
+                                                                             <http://benchmark/OWL2Bench#hasLastName> "Byczek" ;
+                                                                             <http://benchmark/OWL2Bench#hasName> "Jahzara Byczek" ;
+                                                                             <http://benchmark/OWL2Bench#hasTelephone> "xxxxxxxxxx" .
+
+
+###  Generated by the OWL API (version 5.1.17.2020-11-07T15:03:35Z) https://github.com/owlcs/owlapi/

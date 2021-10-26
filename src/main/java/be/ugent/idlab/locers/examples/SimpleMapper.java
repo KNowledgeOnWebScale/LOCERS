@@ -78,7 +78,9 @@ public class SimpleMapper {
 				
 			}
 			return null;
-		} else {
+		} else if(!header.isEmpty() && header.startsWith(input)){
+			return null;
+		} else{
 			if (keepHeader) {
 				StringBuilder builder = new StringBuilder();
 				input = builder.append(header).append("\n").append(input).toString();

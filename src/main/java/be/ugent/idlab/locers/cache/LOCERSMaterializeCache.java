@@ -9,6 +9,7 @@ import be.ugent.idlab.locers.query.DataConstraint;
 import be.ugent.idlab.locers.query.objects.QueryVar;
 import org.semanticweb.HermiT.Configuration;
 import org.semanticweb.HermiT.Reasoner;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -20,10 +21,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * @author pbonte
- *
- */
+
 public class LOCERSMaterializeCache {
 	protected OWLOntology ontology;
 	protected OWLOntologyManager manager;
@@ -34,11 +32,13 @@ public class LOCERSMaterializeCache {
 	protected MaterializeCacheStructure cacheStruct;
 	protected Map<String, DataConstraint> dataClsMap;
 	private Set<OWLNamedIndividual> statics;
+	private OWLOntologyManager tempManager;
 
 
 	public void init(OWLOntology ontology) {
 		this.ontology = ontology;
 		this.manager = ontology.getOWLOntologyManager();
+		this.tempManager = OWLManager.createOWLOntologyManager();
 		this.dataFactory = manager.getOWLDataFactory();
 		Configuration configuration = new Configuration();
 		configuration.throwInconsistentOntologyException = false;
@@ -73,13 +73,14 @@ public class LOCERSMaterializeCache {
 	public Set<OWLAxiom> check(Set<OWLAxiom> event) {
 		OWLOntology tempOnt;
 		try {
-			tempOnt = manager.createOntology();
+			tempOnt = tempManager.createOntology();
 
-			manager.addAxioms(tempOnt, event);
+			tempManager.addAxioms(tempOnt, event.stream());
+
 			// first check the cache
 			Set<OWLAxiom> extended = tempOnt.individualsInSignature().map(ind -> ontology.classAssertionAxioms(ind))
 					.flatMap(Function.identity()).collect(Collectors.toSet());
-			
+
 			extended.addAll(event);
 			long time0 = System.currentTimeMillis();
 			Set<OWLAxiom> cachedTargets = cacheStruct.checkMaterialized(extended);
@@ -87,6 +88,7 @@ public class LOCERSMaterializeCache {
 			if (!cachedTargets.isEmpty()) {
 				// results found in cache
 				System.out.println("Cache hit");
+				tempManager.removeOntology(tempOnt);
 				return cachedTargets;
 			} else {
 				System.out.println("Cache miss");
@@ -124,7 +126,7 @@ public class LOCERSMaterializeCache {
 
 				}
 				CacheQueryGenerator2.generateDataProps(q,extended,varNames,statics,dataConstraints);
-
+				// add to cache
 				cacheStruct.addMaterialize(q,individualTypes);
 				/*if(allResults.isEmpty()){
 					CacheQuery q = CacheQueryGenerator.generate(extended);
@@ -132,6 +134,7 @@ public class LOCERSMaterializeCache {
 					allResults.add(dataFactory.getOWLClass("owl:Nothing"));
 				}*/
 				manager.removeAxioms(ontology, event);
+				tempManager.removeOntology(tempOnt);
 				return allResults;
 			}
 		} catch (OWLOntologyCreationException e) {

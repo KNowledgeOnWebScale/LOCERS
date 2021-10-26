@@ -1,10 +1,10 @@
 /**
  * 
  */
-package be.ugent.idlab.loreo.test;
+package be.ugent.idlab.locers.test;
 
-import be.ugent.idlab.loreo.cache.LOREOCache;
-import be.ugent.idlab.loreo.cache.LOREOStructureCache;
+import be.ugent.idlab.locers.cache.LOCERSCache;
+import be.ugent.idlab.locers.cache.LOCERSStructureCache;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -16,10 +16,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author pbonte
- *
- */
+
 public class StructureTest {
 	OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	OWLDataFactory dataFactory = manager.getOWLDataFactory();
@@ -29,7 +26,7 @@ public class StructureTest {
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 		
 		
-		LOREOCache cache = new LOREOStructureCache();
+		LOCERSCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		OWLClass test = dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Test");
 		OWLClass test2 = dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Test2");
@@ -61,7 +58,7 @@ public class StructureTest {
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 		
 		
-		LOREOCache cache = new LOREOStructureCache();
+		LOCERSCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		
 		OWLClass test = dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Test");
@@ -87,7 +84,7 @@ public class StructureTest {
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 		
 		
-		LOREOCache cache = new LOREOStructureCache();
+		LOCERSCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		
 		OWLObjectSomeValuesFrom objRestiriction = dataFactory.getOWLObjectSomeValuesFrom(dataFactory.getOWLObjectProperty("http://knowman.idlab.ugent.be/example#hasSupPart"), dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#BackSupport"));
@@ -120,7 +117,7 @@ public class StructureTest {
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 		
 		
-		LOREOCache cache = new LOREOStructureCache();
+		LOCERSCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		Set<OWLClass> result = new HashSet<OWLClass>(Collections.singleton(dataFactory.getOWLClass("owl:Nothing")));
 

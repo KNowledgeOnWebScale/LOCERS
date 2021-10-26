@@ -3,6 +3,7 @@
  */
 package be.ugent.idlab.locers.examples;
 
+import be.ugent.idlab.locers.cache.HashMaterializedCacheStructure;
 import be.ugent.idlab.locers.cache.LOCERSMaterializeCache;
 import be.ugent.idlab.locers.cache.LOCERSStructureCache;
 import be.ugent.idlab.locers.cache.MaterializeCacheStructure;
@@ -22,10 +23,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @author pbonte
- *
- */
+
 public class CacheSizeTest {
 
 	static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -50,8 +48,8 @@ public class CacheSizeTest {
 
 
 		String path = "/Users/psbonte/Documents/Documents/TestWorkspace/CityBenchPlus/resource/";
-		int cacheSize = 100;
-		int windowSize = 1;
+		int cacheSize = 1;
+		int windowSize = 100;
 		int maxNum=1000;
 		if(args.length >= 1) {
 			path = args[0];
@@ -104,6 +102,9 @@ public class CacheSizeTest {
 			long finalTime = System.currentTimeMillis() - time1;
 			System.out.println("Miss Time:\t"+finalTime);
 			System.out.println("Window Size:\t"+windowEvent.size());
+			System.out.println("Memory: "+MemUtils.getReallyUsedMemory());
+
+
 			precomputedWindows.add(windowEvent);
 		}
 		//evaluate cache
@@ -115,6 +116,8 @@ public class CacheSizeTest {
 			System.out.println(result2);
 			System.out.println("Size:\t"+result2.size());
 			System.out.println("Cache size:\t" + cache.getSize());
+			System.out.println("Memory: "+MemUtils.getReallyUsedMemory());
+
 
 		}
 		System.out.println("done");

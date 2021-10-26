@@ -19,10 +19,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import java.io.File;
 import java.util.Set;
 
-/**
- * @author pbonte
- *
- */
+
 public class Test {
 
 	/**

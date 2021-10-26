@@ -13,10 +13,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * @author pbonte
- *
- */
+
 public class Explainer {
 
 	private OWLOntology ontology;

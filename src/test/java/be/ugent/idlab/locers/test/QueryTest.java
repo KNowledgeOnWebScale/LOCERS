@@ -1,12 +1,12 @@
-package be.ugent.idlab.loreo.test;
+package be.ugent.idlab.locers.test;
 
-import be.ugent.idlab.loreo.cache.HashCacheStructure;
-import be.ugent.idlab.loreo.cache.LOREOCache;
-import be.ugent.idlab.loreo.cache.LOREONaiveCache;
-import be.ugent.idlab.loreo.cache.LOREOStructureCache;
-import be.ugent.idlab.loreo.query.AxiomIndexer;
-import be.ugent.idlab.loreo.query.CacheQuery;
-import be.ugent.idlab.loreo.query.CacheQueryGenerator;
+import be.ugent.idlab.locers.cache.HashCacheStructure;
+import be.ugent.idlab.locers.cache.LOCERSCache;
+import be.ugent.idlab.locers.cache.LOCERSNaiveCache;
+import be.ugent.idlab.locers.cache.LOCERSStructureCache;
+import be.ugent.idlab.locers.query.AxiomIndexer;
+import be.ugent.idlab.locers.query.CacheQuery;
+import be.ugent.idlab.locers.query.CacheQueryGenerator;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -19,10 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author pbonte
- *
- */
+
 public class QueryTest {
 
 
@@ -34,7 +31,7 @@ public class QueryTest {
 		File inputOntologyFile = new File("resources/lubm.owl");
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 
-		LOREOStructureCache cache = new LOREOStructureCache();
+		LOCERSStructureCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		cache.setCacheStructure(new HashCacheStructure());
 

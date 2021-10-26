@@ -23,9 +23,9 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile group: 'net.sourceforge.owlapi', name: 'org.semanticweb.hermit', version: '1.4.5.519'
-    compile group: 'com.github.dpaukov', name: 'combinatoricslib3', version: '3.0.0'
-
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'net.sourceforge.owlapi', name: 'org.semanticweb.hermit', version: '1.4.5.519'
+    implementation group: 'com.github.dpaukov', name: 'combinatoricslib3', version: '3.0.0'
+    implementation group: 'org.apache.jena', name: 'jena-arq', version: '3.17.0'
 }
 

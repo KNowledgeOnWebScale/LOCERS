@@ -1,12 +1,13 @@
 /**
  * 
  */
-package be.ugent.idlab.loreo.test;
+package be.ugent.idlab.locers.test;
 
-import be.ugent.idlab.loreo.cache.HashCacheStructure;
-import be.ugent.idlab.loreo.cache.LOREOStructureCache;
-import be.ugent.idlab.loreo.query.CacheQuery;
-import be.ugent.idlab.loreo.query.CacheQueryGenerator;
+import be.ugent.idlab.locers.cache.HashCacheStructure;
+import be.ugent.idlab.locers.cache.LOCERSStructureCache;
+import be.ugent.idlab.locers.examples.MemUtils;
+import be.ugent.idlab.locers.query.CacheQuery;
+import be.ugent.idlab.locers.query.CacheQueryGenerator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
@@ -15,10 +16,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * @author pbonte
- *
- */
+
 public class ScalabilityTest {
 
 	static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -26,11 +24,11 @@ public class ScalabilityTest {
 
 	public static void main(String[] args) throws Exception {
 		final int numTest = 1000;
-		final int numRel = 400;
+		final int numRel = 100;
 		File inputOntologyFile = new File("resources/example.owl");
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 
-		LOREOStructureCache cache = new LOREOStructureCache();
+		LOCERSStructureCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
 		cache.setCacheStructure(new HashCacheStructure());
 
@@ -65,6 +63,10 @@ public class ScalabilityTest {
 			long result = ( end- time1);
 			System.out.println(result);
 			results.add(result);
+			System.out.println("Memory: "+ MemUtils.getReallyUsedMemory());
+			System.out.println("Cache size: " +cache.getSize());
+
+
 		}
 		System.out.println("Avg: " + results.stream().mapToDouble(a -> a).average().getAsDouble());
 		System.out.println(cache.getSize());
@@ -126,7 +128,7 @@ public class ScalabilityTest {
 		return event;
 	}
 
-	public static void pupulateCache(LOREOStructureCache cache, OWLOntology ontology, Set<OWLAxiom> event) {
+	public static void pupulateCache(LOCERSStructureCache cache, OWLOntology ontology, Set<OWLAxiom> event) {
 		OWLOntology tempOnt;
 		try {
 			tempOnt = manager.createOntology();

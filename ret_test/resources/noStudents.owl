@@ -1,0 +1,3787 @@
+@prefix : <http://benchmark/OWL2Bench#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://benchmark/OWL2Bench#> .
+
+<http://benchmark/OWL2Bench> rdf:type owl:Ontology ;
+                              rdfs:comment "A Benchmark for OWL 2 Ontologies." ;
+                              rdfs:label "OWL2Bench"@en ;
+                              owl:versionInfo "OWL2Bench, ver 10 April, 2020" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://benchmark/OWL2Bench#advises
+:advises rdf:type owl:ObjectProperty ;
+         owl:equivalentProperty :isAdvisorOf .
+
+
+###  http://benchmark/OWL2Bench#dislikes
+:dislikes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain :Person ;
+          owl:propertyDisjointWith :likes .
+
+
+###  http://benchmark/OWL2Bench#enrollFor
+:enrollFor rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain :Student ;
+           rdfs:range :Program .
+
+
+###  http://benchmark/OWL2Bench#enrollIn
+:enrollIn rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isStudentOf ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain :Student ;
+          rdfs:range :Department .
+
+
+###  http://benchmark/OWL2Bench#hasAdvisor
+:hasAdvisor rdf:type owl:ObjectProperty ;
+            owl:equivalentProperty :isAdvisedBy .
+
+
+###  http://benchmark/OWL2Bench#hasAlumnus
+:hasAlumnus rdf:type owl:ObjectProperty ;
+            owl:inverseOf :hasDegreeFrom ;
+            rdfs:domain :University ;
+            rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasAssistantProfessor
+:hasAssistantProfessor rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasProfessor ;
+                       owl:inverseOf :isAssistantProfessorOf ;
+                       rdfs:domain :Department ;
+                       rdfs:range :AssistantProfessor .
+
+
+###  http://benchmark/OWL2Bench#hasAssociateProfessor
+:hasAssociateProfessor rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasProfessor ;
+                       owl:inverseOf :isAssociateProfessorOf ;
+                       rdfs:domain :Department ;
+                       rdfs:range :AssociateProfessor .
+
+
+###  http://benchmark/OWL2Bench#hasAuthor
+:hasAuthor rdf:type owl:ObjectProperty ;
+           rdfs:domain :Publication ;
+           rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasClericalStaff
+:hasClericalStaff rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasSupportingStaff ;
+                  rdfs:domain :Department ;
+                  rdfs:range :ClericalStaff .
+
+
+###  http://benchmark/OWL2Bench#hasCollaborationWith
+:hasCollaborationWith rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdf:type owl:SymmetricProperty ;
+                      rdfs:domain :Person ;
+                      rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasCollege
+:hasCollege rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasSubOrganization ;
+            owl:inverseOf :isCollegeOf ;
+            rdfs:domain :University ;
+            rdfs:range :College .
+
+
+###  http://benchmark/OWL2Bench#hasCollegeDiscipline
+:hasCollegeDiscipline rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdfs:domain :College ;
+                      rdfs:range :CollegeDiscipline .
+
+
+###  http://benchmark/OWL2Bench#hasDean
+:hasDean rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isDeanOf ;
+         rdfs:domain :Organization ;
+         rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasDegreeFrom
+:hasDegreeFrom rdf:type owl:ObjectProperty ;
+               rdfs:domain :Person ;
+               rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#hasDepartment
+:hasDepartment rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasSubOrganization ;
+               owl:inverseOf :isDepartmentOf ;
+               rdfs:domain :College ;
+               rdfs:range :Department .
+
+
+###  http://benchmark/OWL2Bench#hasDoctoralDegreeFrom
+:hasDoctoralDegreeFrom rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasDegreeFrom ;
+                       rdfs:domain :Person ;
+                       rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#hasEmployee
+:hasEmployee rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasMember ;
+             owl:inverseOf :worksFor .
+
+
+###  http://benchmark/OWL2Bench#hasFaculty
+:hasFaculty rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasEmployee ;
+            owl:inverseOf :isFacultyOf ;
+            rdfs:domain :Department ;
+            rdfs:range :Faculty .
+
+
+###  http://benchmark/OWL2Bench#hasFullProfessor
+:hasFullProfessor rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasProfessor ;
+                  owl:inverseOf :isFullProfessorOf ;
+                  rdfs:domain :Department ;
+                  rdfs:range :FullProfessor .
+
+
+###  http://benchmark/OWL2Bench#hasHead
+:hasHead rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :hasFullProfessor ;
+         owl:inverseOf :isHeadOf .
+
+
+###  http://benchmark/OWL2Bench#hasLecturer
+:hasLecturer rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasFaculty ;
+             owl:inverseOf :isLecturerOf ;
+             rdfs:domain :Department ;
+             rdfs:range :Lecturer .
+
+
+###  http://benchmark/OWL2Bench#hasMajor
+:hasMajor rdf:type owl:ObjectProperty ;
+          rdfs:domain :Person ;
+          rdfs:range [ rdf:type owl:Class ;
+                       owl:unionOf ( :Engineering
+                                     :FineArts
+                                     :HumanitiesAndSocialScience
+                                     :Management
+                                     :Science
+                                   )
+                     ] .
+
+
+###  http://benchmark/OWL2Bench#hasMasterDegreeFrom
+:hasMasterDegreeFrom rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :hasDegreeFrom ;
+                     rdfs:domain :Person ;
+                     rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#hasMember
+:hasMember rdf:type owl:ObjectProperty ;
+           owl:inverseOf :isMemberOf ;
+           rdfs:domain :Organization ;
+           rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasOtherStaff
+:hasOtherStaff rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasSupportingStaff ;
+               rdfs:domain :Department ;
+               rdfs:range :OtherStaff .
+
+
+###  http://benchmark/OWL2Bench#hasPGProgram
+:hasPGProgram rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasProgram ;
+              rdfs:domain :Department ;
+              rdfs:range :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#hasPart
+:hasPart rdf:type owl:ObjectProperty ;
+         owl:equivalentProperty :hasSubOrganization ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         owl:inverseOf :isPartOf ;
+         rdf:type owl:TransitiveProperty ;
+         rdfs:domain :Organization ;
+         rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#hasPhDProgram
+:hasPhDProgram rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasProgram ;
+               rdfs:domain :Department ;
+               rdfs:range :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#hasPostDoc
+:hasPostDoc rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasFaculty ;
+            owl:inverseOf :isPostDocOf ;
+            rdfs:domain :Department ;
+            rdfs:range :PostDoc .
+
+
+###  http://benchmark/OWL2Bench#hasProfessor
+:hasProfessor rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasFaculty ;
+              owl:inverseOf :isProfessorOf ;
+              rdfs:domain :Department ;
+              rdfs:range :Professor .
+
+
+###  http://benchmark/OWL2Bench#hasProgram
+:hasProgram rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Department ;
+            rdfs:range :Program .
+
+
+###  http://benchmark/OWL2Bench#hasResearchAssistant
+:hasResearchAssistant rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasEmployee ;
+                      owl:inverseOf :isResearchAssistantOf ;
+                      rdfs:domain :ResearchGroup ;
+                      rdfs:range :ResearchAssistant .
+
+
+###  http://benchmark/OWL2Bench#hasResearchGroup
+:hasResearchGroup rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasSubOrganization ;
+                  owl:inverseOf :isResearchGroupOf ;
+                  rdfs:domain :University ;
+                  rdfs:range :ResearchGroup .
+
+
+###  http://benchmark/OWL2Bench#hasResearchProject
+:hasResearchProject rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasWork ;
+                    rdfs:domain :ResearchGroup ;
+                    rdfs:range :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#hasSameHomeTownWith
+:hasSameHomeTownWith rdf:type owl:ObjectProperty ,
+                              owl:SymmetricProperty ,
+                              owl:TransitiveProperty ;
+                     rdfs:domain :Person ;
+                     rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#hasStudent
+:hasStudent rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasMember ;
+            owl:inverseOf :isStudentOf ;
+            rdfs:domain :Organization ;
+            rdfs:range :Student .
+
+
+###  http://benchmark/OWL2Bench#hasSubOrganization
+:hasSubOrganization rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    owl:inverseOf :isSubOrganizationOf ;
+                    rdf:type owl:TransitiveProperty ;
+                    rdfs:domain :Organization ;
+                    rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#hasSupportingStaff
+:hasSupportingStaff rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasEmployee ;
+                    rdfs:domain :Department ;
+                    rdfs:range :SupportingStaff .
+
+
+###  http://benchmark/OWL2Bench#hasSystemStaff
+:hasSystemStaff rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :hasSupportingStaff ;
+                rdfs:domain :Department ;
+                rdfs:range :SystemStaff .
+
+
+###  http://benchmark/OWL2Bench#hasUGProgram
+:hasUGProgram rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasProgram ;
+              rdfs:domain :Department ;
+              rdfs:range :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#hasUndergraduateDegreeFrom
+:hasUndergraduateDegreeFrom rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf :hasDegreeFrom ;
+                            rdfs:domain :Person ;
+                            rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#hasVisitingProfessor
+:hasVisitingProfessor rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasProfessor ;
+                      owl:inverseOf :isVisitingProfessorOf ;
+                      rdfs:domain :Department ;
+                      rdfs:range :VisitingProfessor .
+
+
+###  http://benchmark/OWL2Bench#hasWomenCollege
+:hasWomenCollege rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasCollege .
+
+
+###  http://benchmark/OWL2Bench#hasWork
+:hasWork rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:range :Work .
+
+
+###  http://benchmark/OWL2Bench#isAdvisedBy
+:isAdvisedBy rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isAdvisorOf ;
+             rdf:type owl:IrreflexiveProperty ;
+             rdfs:domain :Person ;
+             rdfs:range :Person .
+
+
+###  http://benchmark/OWL2Bench#isAdvisorOf
+:isAdvisorOf rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#isAffiliateOf
+:isAffiliateOf rdf:type owl:ObjectProperty .
+
+
+###  http://benchmark/OWL2Bench#isAffiliatedOrganizationOf
+:isAffiliatedOrganizationOf rdf:type owl:ObjectProperty ,
+                                     owl:AsymmetricProperty ,
+                                     owl:IrreflexiveProperty ;
+                            rdfs:domain :Organization ;
+                            rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#isAssistantProfessorOf
+:isAssistantProfessorOf rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :isProfessorOf .
+
+
+###  http://benchmark/OWL2Bench#isAssociateProfessorOf
+:isAssociateProfessorOf rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :isProfessorOf .
+
+
+###  http://benchmark/OWL2Bench#isClericalStaffOf
+:isClericalStaffOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :isSupportingStaffOf .
+
+
+###  http://benchmark/OWL2Bench#isCollegeOf
+:isCollegeOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :isSubOrganizationOf ;
+             rdfs:domain :College ;
+             rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#isCrazyAbout
+:isCrazyAbout rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :loves ;
+              rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#isDeanOf
+:isDeanOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Person ;
+          rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#isDepartmentOf
+:isDepartmentOf rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :isSubOrganizationOf ;
+                rdfs:domain :Department ;
+                rdfs:range :College .
+
+
+###  http://benchmark/OWL2Bench#isFacultyOf
+:isFacultyOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :worksFor ;
+             rdfs:domain :Faculty ;
+             rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#isFullProfessorOf
+:isFullProfessorOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :isProfessorOf .
+
+
+###  http://benchmark/OWL2Bench#isHeadOf
+:isHeadOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isFullProfessorOf ;
+          rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://benchmark/OWL2Bench#isLecturerOf
+:isLecturerOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :isFacultyOf .
+
+
+###  http://benchmark/OWL2Bench#isMemberOf
+:isMemberOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Person ;
+            rdfs:range :Organization ;
+            owl:propertyChainAxiom ( :enrollIn
+                                     :isPartOf
+                                   ) ,
+                                   ( :worksFor
+                                     :isPartOf
+                                   ) .
+
+
+###  http://benchmark/OWL2Bench#isOtherStaffOf
+:isOtherStaffOf rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :isSupportingStaffOf .
+
+
+###  http://benchmark/OWL2Bench#isPartOf
+:isPartOf rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty :isSubOrganizationOf ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdf:type owl:TransitiveProperty ;
+          rdfs:domain :Organization ;
+          rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#isPostDocOf
+:isPostDocOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :isFacultyOf .
+
+
+###  http://benchmark/OWL2Bench#isProfessorOf
+:isProfessorOf rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :isFacultyOf .
+
+
+###  http://benchmark/OWL2Bench#isResearchAssistantOf
+:isResearchAssistantOf rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :worksFor .
+
+
+###  http://benchmark/OWL2Bench#isResearchGroupOf
+:isResearchGroupOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :isSubOrganizationOf ;
+                   rdfs:domain :ResearchGroup ;
+                   rdfs:range :University .
+
+
+###  http://benchmark/OWL2Bench#isStudentOf
+:isStudentOf rdf:type owl:ObjectProperty ;
+             rdfs:domain :Student ;
+             rdfs:range :Organization ;
+             owl:propertyChainAxiom ( :enrollIn
+                                      :isSubOrganizationOf
+                                    ) .
+
+
+###  http://benchmark/OWL2Bench#isSubOrganizationOf
+:isSubOrganizationOf rdf:type owl:ObjectProperty ,
+                              owl:TransitiveProperty ;
+                     rdfs:domain :Organization ;
+                     rdfs:range :Organization .
+
+
+###  http://benchmark/OWL2Bench#isSupportingStaffOf
+:isSupportingStaffOf rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :worksFor .
+
+
+###  http://benchmark/OWL2Bench#isSystemStaffOf
+:isSystemStaffOf rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :isSupportingStaffOf .
+
+
+###  http://benchmark/OWL2Bench#isTaughtBy
+:isTaughtBy rdf:type owl:ObjectProperty ;
+            owl:inverseOf :teachesCourse ;
+            rdfs:domain :Course ;
+            rdfs:range :Faculty .
+
+
+###  http://benchmark/OWL2Bench#isTeachingAssistantOf
+:isTeachingAssistantOf rdf:type owl:ObjectProperty ;
+                       rdfs:domain :TeachingAssistant ;
+                       rdfs:range :Course .
+
+
+###  http://benchmark/OWL2Bench#isVisitingProfessorOf
+:isVisitingProfessorOf rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :isProfessorOf .
+
+
+###  http://benchmark/OWL2Bench#isWomenCollegeOf
+:isWomenCollegeOf rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :isCollegeOf .
+
+
+###  http://benchmark/OWL2Bench#knows
+:knows rdf:type owl:ObjectProperty ,
+                owl:ReflexiveProperty .
+
+
+###  http://benchmark/OWL2Bench#likes
+:likes rdf:type owl:ObjectProperty ;
+       rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#loves
+:loves rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :likes ;
+       rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#offerCourse
+:offerCourse rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Department ;
+             rdfs:range :Course .
+
+
+###  http://benchmark/OWL2Bench#orgPublication
+:orgPublication rdf:type owl:ObjectProperty ;
+                rdfs:domain :Organization ;
+                rdfs:range :Publication .
+
+
+###  http://benchmark/OWL2Bench#publicationResearch
+:publicationResearch rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Publication .
+
+
+###  http://benchmark/OWL2Bench#takesCourse
+:takesCourse rdf:type owl:ObjectProperty ;
+             rdfs:domain :Student ;
+             rdfs:range :Course .
+
+
+###  http://benchmark/OWL2Bench#teachesCourse
+:teachesCourse rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasWork ;
+               rdfs:domain :Faculty ;
+               rdfs:range :Course .
+
+
+###  http://benchmark/OWL2Bench#tenured
+:tenured rdf:type owl:ObjectProperty ;
+         rdfs:domain :Professor .
+
+
+###  http://benchmark/OWL2Bench#worksFor
+:worksFor rdf:type owl:ObjectProperty ;
+          rdfs:domain :Employee ;
+          rdfs:range :Organization ;
+          owl:propertyChainAxiom ( :worksFor
+                                   :isSubOrganizationOf
+                                 ) .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://benchmark/OWL2Bench#hasAge
+:hasAge rdf:type owl:DatatypeProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#hasCode
+:hasCode rdf:type owl:DatatypeProperty ;
+         owl:equivalentProperty :hasID ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdf:type owl:FunctionalProperty .
+
+
+###  http://benchmark/OWL2Bench#hasEmailAddress
+:hasEmailAddress rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#hasFirstName
+:hasFirstName rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Person ;
+              owl:propertyDisjointWith :hasLastName .
+
+
+###  http://benchmark/OWL2Bench#hasID
+:hasID rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdf:type owl:FunctionalProperty .
+
+
+###  http://benchmark/OWL2Bench#hasLastName
+:hasLastName rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#hasName
+:hasName rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasOfficeNumber
+:hasOfficeNumber rdf:type owl:DatatypeProperty .
+
+
+###  http://benchmark/OWL2Bench#hasPublicationDate
+:hasPublicationDate rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Publication .
+
+
+###  http://benchmark/OWL2Bench#hasResearchInterest
+:hasResearchInterest rdf:type owl:DatatypeProperty ;
+                     rdfs:range rdfs:Literal .
+
+
+###  http://benchmark/OWL2Bench#hasTelephone
+:hasTelephone rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Person .
+
+
+###  http://benchmark/OWL2Bench#hasTitle
+:hasTitle rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Person .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://benchmark/OWL2Bench#AeronauticalEngineering
+:AeronauticalEngineering rdf:type owl:Class ;
+                         rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#Anthropology
+:Anthropology rdf:type owl:Class ;
+              rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#Architecture
+:Architecture rdf:type owl:Class ;
+              rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#Article
+:Article rdf:type owl:Class ;
+         rdfs:subClassOf :Publication ;
+         owl:disjointUnionOf ( :ConferencePaper
+                               :JournalArticle
+                               :TechnicalReport
+                             ) .
+
+
+###  http://benchmark/OWL2Bench#AsianArts
+:AsianArts rdf:type owl:Class ;
+           rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#AssistantProfessor
+:AssistantProfessor rdf:type owl:Class ;
+                    rdfs:subClassOf :Professor .
+
+
+###  http://benchmark/OWL2Bench#AssociateProfessor
+:AssociateProfessor rdf:type owl:Class ;
+                    rdfs:subClassOf :Professor .
+
+
+###  http://benchmark/OWL2Bench#Astronomy
+:Astronomy rdf:type owl:Class ;
+           rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#Badminton
+:Badminton rdf:type owl:Class ;
+           rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#BasketBall
+:BasketBall rdf:type owl:Class ;
+            rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#Biology
+:Biology rdf:type owl:Class ;
+         rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#BiomedicalEngineering
+:BiomedicalEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#Book
+:Book rdf:type owl:Class ;
+      rdfs:subClassOf :Publication .
+
+
+###  http://benchmark/OWL2Bench#Chair
+:Chair rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :isHeadOf ;
+                             owl:someValuesFrom :Department
+                           ] ;
+       rdfs:subClassOf :FullProfessor .
+
+
+###  http://benchmark/OWL2Bench#ChemicalEngineering
+:ChemicalEngineering rdf:type owl:Class ;
+                     rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#Chemistry
+:Chemistry rdf:type owl:Class ;
+           rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#CivilEngineering
+:CivilEngineering rdf:type owl:Class ;
+                  rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#ClericalStaff
+:ClericalStaff rdf:type owl:Class ;
+               rdfs:subClassOf :SupportingStaff .
+
+
+###  http://benchmark/OWL2Bench#CoEdCollege
+:CoEdCollege rdf:type owl:Class ;
+             rdfs:subClassOf :College .
+
+
+###  http://benchmark/OWL2Bench#College
+:College rdf:type owl:Class ;
+         owl:equivalentClass :School ;
+         rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#CollegeDiscipline
+:CollegeDiscipline rdf:type owl:Class ;
+                   owl:disjointUnionOf ( :Engineering
+                                         :FineArts
+                                         :HumanitiesAndSocialScience
+                                         :Management
+                                         :Science
+                                       ) .
+
+
+###  http://benchmark/OWL2Bench#ComputerEngineering
+:ComputerEngineering rdf:type owl:Class ;
+                     rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#ComputerScience
+:ComputerScience rdf:type owl:Class ;
+                 rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#ConferencePaper
+:ConferencePaper rdf:type owl:Class ;
+                 rdfs:subClassOf :Article .
+
+
+###  http://benchmark/OWL2Bench#Course
+:Course rdf:type owl:Class ;
+        owl:equivalentClass :TeachingCourse ;
+        owl:disjointUnionOf ( :ElectiveCourse
+                              :UGCourse
+                            ) .
+
+
+###  http://benchmark/OWL2Bench#Cricket
+:Cricket rdf:type owl:Class ;
+         rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#Dean
+:Dean rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Restriction ;
+                            owl:onProperty :isHeadOf ;
+                            owl:someValuesFrom :College
+                          ] ;
+      rdfs:subClassOf :FullProfessor .
+
+
+###  http://benchmark/OWL2Bench#Department
+:Department rdf:type owl:Class ;
+            rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#DesignManagement
+:DesignManagement rdf:type owl:Class ;
+                  rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#Director
+:Director rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :isHeadOf ;
+                                owl:someValuesFrom :Program
+                              ] ;
+          rdfs:subClassOf :FullProfessor .
+
+
+###  http://benchmark/OWL2Bench#Drama
+:Drama rdf:type owl:Class ;
+       rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#Economics
+:Economics rdf:type owl:Class ;
+           rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#ElectiveCourse
+:ElectiveCourse rdf:type owl:Class ;
+                rdfs:subClassOf :Course ;
+                owl:disjointWith :UGCourse .
+
+
+###  http://benchmark/OWL2Bench#ElectricalEngineering
+:ElectricalEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#Employee
+:Employee rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :worksFor ;
+                                                       owl:someValuesFrom :Organization
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
+          rdfs:subClassOf :Person .
+
+
+###  http://benchmark/OWL2Bench#Engineering
+:Engineering rdf:type owl:Class ;
+             rdfs:subClassOf :CollegeDiscipline ;
+             owl:disjointUnionOf ( :AeronauticalEngineering
+                                   :BiomedicalEngineering
+                                   :ChemicalEngineering
+                                   :CivilEngineering
+                                   :ComputerEngineering
+                                   :ElectricalEngineering
+                                   :IndustryEngineering
+                                   :MaterialScienceEngineering
+                                   :MechanicalEngineering
+                                   :PetroleumlEngineering
+                                 ) .
+
+
+###  http://benchmark/OWL2Bench#English
+:English rdf:type owl:Class ;
+         rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#Faculty
+:Faculty rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :Employee
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :teachesCourse ;
+                                                      owl:someValuesFrom :Course
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :Employee .
+
+
+###  http://benchmark/OWL2Bench#FinancialAndAccountingManagement
+:FinancialAndAccountingManagement rdf:type owl:Class ;
+                                  rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#FineArts
+:FineArts rdf:type owl:Class ;
+          rdfs:subClassOf :CollegeDiscipline ;
+          owl:disjointUnionOf ( :Architecture
+                                :AsianArts
+                                :Drama
+                                :LatinArts
+                                :MediaArtsAndSciences
+                                :MedievalArts
+                                :ModernArts
+                                :MusicsClass
+                                :PerformingArts
+                                :TheatreAndDance
+                              ) .
+
+
+###  http://benchmark/OWL2Bench#Football
+:Football rdf:type owl:Class ;
+          rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#FullProfessor
+:FullProfessor rdf:type owl:Class ;
+               rdfs:subClassOf :Professor .
+
+
+###  http://benchmark/OWL2Bench#Game
+:Game rdf:type owl:Class ;
+      rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#Geosciences
+:Geosciences rdf:type owl:Class ;
+             rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#History
+:History rdf:type owl:Class ;
+         rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#HumanResourceManagement
+:HumanResourceManagement rdf:type owl:Class ;
+                         rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#Humanities
+:Humanities rdf:type owl:Class ;
+            rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#HumanitiesAndSocialScience
+:HumanitiesAndSocialScience rdf:type owl:Class ;
+                            rdfs:subClassOf :CollegeDiscipline ;
+                            owl:disjointUnionOf ( :Anthropology
+                                                  :Economics
+                                                  :English
+                                                  :History
+                                                  :Humanities
+                                                  :Linguistics
+                                                  :ModernLanguages
+                                                  :Philosophy
+                                                  :Psychology
+                                                  :Religions
+                                                ) .
+
+
+###  http://benchmark/OWL2Bench#IndustryEngineering
+:IndustryEngineering rdf:type owl:Class ;
+                     rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#Institute
+:Institute rdf:type owl:Class ;
+           rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#Interest
+:Interest rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :AbstractPainting
+                                            :ActionMovie
+                                            :ArticleReading
+                                            :Badminton
+                                            :Basketball
+                                            :BookReading
+                                            :ClassicalMusic
+                                            :ComedyMovie
+                                            :Cricket
+                                            :DocumentaryMovie
+                                            :FictionMovie
+                                            :Football
+                                            :HorrorMovie
+                                            :NewspaperReading
+                                            :OilPainting
+                                            :PCGame
+                                            :PopMusic
+                                            :RockAndRollMusic
+                                            :RomanticMovie
+                                            :Shopping
+                                            :Soccer
+                                            :StampCollecting
+                                            :Swimming
+                                            :T20Cricket
+                                            :Tennis
+                                            :ThrillerMovie
+                                            :Travelling
+                                            :VideoGame
+                                          )
+                              ] .
+
+
+###  http://benchmark/OWL2Bench#JournalArticle
+:JournalArticle rdf:type owl:Class ;
+                rdfs:subClassOf :Article .
+
+
+###  http://benchmark/OWL2Bench#LatinArts
+:LatinArts rdf:type owl:Class ;
+           rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#Lecturer
+:Lecturer rdf:type owl:Class ;
+          rdfs:subClassOf :Faculty .
+
+
+###  http://benchmark/OWL2Bench#LeisureStudent
+:LeisureStudent rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Student
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :takesCourse ;
+                                                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :Course
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Student .
+
+
+###  http://benchmark/OWL2Bench#Linguistics
+:Linguistics rdf:type owl:Class ;
+             rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#Man
+:Man rdf:type owl:Class ;
+     rdfs:subClassOf :Person ;
+     owl:disjointWith :Woman .
+
+
+###  http://benchmark/OWL2Bench#Management
+:Management rdf:type owl:Class ;
+            rdfs:subClassOf :CollegeDiscipline ;
+            owl:disjointUnionOf ( :DesignManagement
+                                  :FinancialAndAccountingManagement
+                                  :HumanResourceManagement
+                                  :MarketingManagement
+                                  :OperationsManagement
+                                  :ProjectManagement
+                                  :PublicRelationsManagement
+                                  :RiskManagement
+                                  :SalesManagement
+                                  :SupplyChainManagement
+                                ) .
+
+
+###  http://benchmark/OWL2Bench#Manual
+:Manual rdf:type owl:Class ;
+        rdfs:subClassOf :Publication .
+
+
+###  http://benchmark/OWL2Bench#MarineScience
+:MarineScience rdf:type owl:Class ;
+               rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#MarketingManagement
+:MarketingManagement rdf:type owl:Class ;
+                     rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#MaterialScienceEngineering
+:MaterialScienceEngineering rdf:type owl:Class ;
+                            rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#MaterialsScience
+:MaterialsScience rdf:type owl:Class ;
+                  rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#Mathematics
+:Mathematics rdf:type owl:Class ;
+             rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#MechanicalEngineering
+:MechanicalEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#MediaArtsAndSciences
+:MediaArtsAndSciences rdf:type owl:Class ;
+                      rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#MedievalArts
+:MedievalArts rdf:type owl:Class ;
+              rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#ModernArts
+:ModernArts rdf:type owl:Class ;
+            rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#ModernLanguages
+:ModernLanguages rdf:type owl:Class ;
+                 rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#Movie
+:Movie rdf:type owl:Class ;
+       rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#Music
+:Music rdf:type owl:Class ;
+       rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#MusicsClass
+:MusicsClass rdf:type owl:Class ;
+             rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#NonScience
+:NonScience rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:complementOf :Science
+                                ] ;
+            rdfs:subClassOf :CollegeDiscipline .
+
+
+###  http://benchmark/OWL2Bench#OperationsManagement
+:OperationsManagement rdf:type owl:Class ;
+                      rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#Organization
+:Organization rdf:type owl:Class .
+
+
+###  http://benchmark/OWL2Bench#OtherStaff
+:OtherStaff rdf:type owl:Class ;
+            rdfs:subClassOf :SupportingStaff .
+
+
+###  http://benchmark/OWL2Bench#PGProgram
+:PGProgram rdf:type owl:Class ;
+           rdfs:subClassOf :Program .
+
+
+###  http://benchmark/OWL2Bench#PGStudent
+:PGStudent rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Student
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :enrollFor ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :PGProgram
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf :Student .
+
+
+###  http://benchmark/OWL2Bench#Painting
+:Painting rdf:type owl:Class ;
+          rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#PeopleWithHobby
+:PeopleWithHobby rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :likes ;
+                                                              owl:someValuesFrom :Interest
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] ;
+                 rdfs:subClassOf :Person .
+
+
+###  http://benchmark/OWL2Bench#PeopleWithManyHobbies
+:PeopleWithManyHobbies rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :likes ;
+                                                                    owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                                    owl:onClass :Interest
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] ;
+                       rdfs:subClassOf :Person .
+
+
+###  http://benchmark/OWL2Bench#PerformingArts
+:PerformingArts rdf:type owl:Class ;
+                rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#Person
+:Person rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:unionOf ( :Man
+                                            :Woman
+                                          )
+                            ] .
+
+
+###  http://benchmark/OWL2Bench#PetroleumlEngineering
+:PetroleumlEngineering rdf:type owl:Class ;
+                       rdfs:subClassOf :Engineering .
+
+
+###  http://benchmark/OWL2Bench#PhDProgram
+:PhDProgram rdf:type owl:Class ;
+            rdfs:subClassOf :Program .
+
+
+###  http://benchmark/OWL2Bench#PhDStudent
+:PhDStudent rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Student
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :enrollFor ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :PhDProgram
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf :Student .
+
+
+###  http://benchmark/OWL2Bench#Philosophy
+:Philosophy rdf:type owl:Class ;
+            rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#Physics
+:Physics rdf:type owl:Class ;
+         rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#PostDoc
+:PostDoc rdf:type owl:Class ;
+         rdfs:subClassOf :Faculty .
+
+
+###  http://benchmark/OWL2Bench#Professor
+:Professor rdf:type owl:Class ;
+           rdfs:subClassOf :Faculty .
+
+
+###  http://benchmark/OWL2Bench#Program
+:Program rdf:type owl:Class .
+
+
+###  http://benchmark/OWL2Bench#ProjectManagement
+:ProjectManagement rdf:type owl:Class ;
+                   rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#Psychology
+:Psychology rdf:type owl:Class ;
+            rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#PublicRelationsManagement
+:PublicRelationsManagement rdf:type owl:Class ;
+                           rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#Publication
+:Publication rdf:type owl:Class ;
+             owl:disjointUnionOf ( :Article
+                                   :Book
+                                   :Manual
+                                   :Software
+                                   :Specification
+                                   :UnofficialPublication
+                                 ) .
+
+
+###  http://benchmark/OWL2Bench#Reading
+:Reading rdf:type owl:Class ;
+         rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#Religions
+:Religions rdf:type owl:Class ;
+           rdfs:subClassOf :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#ResearchAssistant
+:ResearchAssistant rdf:type owl:Class ;
+                   rdfs:subClassOf :Employee .
+
+
+###  http://benchmark/OWL2Bench#ResearchGroup
+:ResearchGroup rdf:type owl:Class ;
+               rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#ResearchProject
+:ResearchProject rdf:type owl:Class ;
+                 rdfs:subClassOf :Work .
+
+
+###  http://benchmark/OWL2Bench#RiskManagement
+:RiskManagement rdf:type owl:Class ;
+                rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#SalesManagement
+:SalesManagement rdf:type owl:Class ;
+                 rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#School
+:School rdf:type owl:Class ;
+        rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#Science
+:Science rdf:type owl:Class ;
+         rdfs:subClassOf :CollegeDiscipline ;
+         owl:disjointUnionOf ( :Astronomy
+                               :Biology
+                               :Chemistry
+                               :ComputerScience
+                               :Geosciences
+                               :MarineScience
+                               :MaterialsScience
+                               :Mathematics
+                               :Physics
+                               :Statistics
+                             ) .
+
+
+###  http://benchmark/OWL2Bench#SelfAwarePerson
+:SelfAwarePerson rdf:type owl:Class ;
+                 owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :knows ;
+                                                              owl:hasSelf "true"^^xsd:boolean
+                                                            ]
+                                                          ) ;
+                                       rdf:type owl:Class
+                                     ] .
+
+
+###  http://benchmark/OWL2Bench#Soccer
+:Soccer rdf:type owl:Class ;
+        rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#Software
+:Software rdf:type owl:Class ;
+          rdfs:subClassOf :Publication .
+
+
+###  http://benchmark/OWL2Bench#Specification
+:Specification rdf:type owl:Class ;
+               rdfs:subClassOf :Publication .
+
+
+###  http://benchmark/OWL2Bench#Sports
+:Sports rdf:type owl:Class ;
+        rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#Statistics
+:Statistics rdf:type owl:Class ;
+            rdfs:subClassOf :Science .
+
+
+###  http://benchmark/OWL2Bench#Student
+:Student rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :enrollIn ;
+                                                      owl:someValuesFrom :Department
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:subClassOf :Person ;
+         owl:hasKey ( :hasID
+                    ) .
+
+
+###  http://benchmark/OWL2Bench#SupplyChainManagement
+:SupplyChainManagement rdf:type owl:Class ;
+                       rdfs:subClassOf :Management .
+
+
+###  http://benchmark/OWL2Bench#SupportingStaff
+:SupportingStaff rdf:type owl:Class ;
+                 rdfs:subClassOf :Employee .
+
+
+###  http://benchmark/OWL2Bench#Swimming
+:Swimming rdf:type owl:Class ;
+          rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#SystemStaff
+:SystemStaff rdf:type owl:Class ;
+             rdfs:subClassOf :SupportingStaff .
+
+
+###  http://benchmark/OWL2Bench#T20CricketFan
+:T20CricketFan rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Person
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :isCrazyAbout ;
+                                                            owl:hasValue :T20Cricket
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :Person .
+
+
+###  http://benchmark/OWL2Bench#TeachingAssistant
+:TeachingAssistant rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( :Student
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :isTeachingAssistantOf ;
+                                                                owl:someValuesFrom :Course
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:subClassOf :Student .
+
+
+###  http://benchmark/OWL2Bench#TeachingCourse
+:TeachingCourse rdf:type owl:Class ;
+                rdfs:subClassOf :Work .
+
+
+###  http://benchmark/OWL2Bench#TechnicalReport
+:TechnicalReport rdf:type owl:Class ;
+                 rdfs:subClassOf :Article .
+
+
+###  http://benchmark/OWL2Bench#Tennis
+:Tennis rdf:type owl:Class ;
+        rdfs:subClassOf :Sports .
+
+
+###  http://benchmark/OWL2Bench#TheatreAndDance
+:TheatreAndDance rdf:type owl:Class ;
+                 rdfs:subClassOf :FineArts .
+
+
+###  http://benchmark/OWL2Bench#Travelling
+:Travelling rdf:type owl:Class ;
+            rdfs:subClassOf :Interest .
+
+
+###  http://benchmark/OWL2Bench#UGCourse
+:UGCourse rdf:type owl:Class ;
+          rdfs:subClassOf :Course .
+
+
+###  http://benchmark/OWL2Bench#UGProgram
+:UGProgram rdf:type owl:Class ;
+           rdfs:subClassOf :Program .
+
+
+###  http://benchmark/OWL2Bench#UGStudent
+:UGStudent rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Student
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :enrollFor ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :UGProgram
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf :Student .
+
+
+###  http://benchmark/OWL2Bench#University
+:University rdf:type owl:Class ;
+            rdfs:subClassOf :Organization .
+
+
+###  http://benchmark/OWL2Bench#UnofficialPublication
+:UnofficialPublication rdf:type owl:Class ;
+                       rdfs:subClassOf :Publication .
+
+
+###  http://benchmark/OWL2Bench#VisitingProfessor
+:VisitingProfessor rdf:type owl:Class ;
+                   rdfs:subClassOf :Professor .
+
+
+###  http://benchmark/OWL2Bench#Woman
+:Woman rdf:type owl:Class ;
+       rdfs:subClassOf :Person .
+
+
+###  http://benchmark/OWL2Bench#WomenCollege
+:WomenCollege rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :College
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :hasStudent ;
+                                                           owl:allValuesFrom :Woman
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf :College .
+
+
+###  http://benchmark/OWL2Bench#Work
+:Work rdf:type owl:Class .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://benchmark/OWL2Bench#AbstractPainting
+:AbstractPainting rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#ActionMovie
+:ActionMovie rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#AeronauticalEngineering
+:AeronauticalEngineering rdf:type owl:NamedIndividual ,
+                                  :AeronauticalEngineering .
+
+
+###  http://benchmark/OWL2Bench#Anthropology
+:Anthropology rdf:type owl:NamedIndividual ,
+                       :Anthropology .
+
+
+###  http://benchmark/OWL2Bench#Architecture
+:Architecture rdf:type owl:NamedIndividual ,
+                       :Architecture .
+
+
+###  http://benchmark/OWL2Bench#ArticleReading
+:ArticleReading rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#AsianArts
+:AsianArts rdf:type owl:NamedIndividual ,
+                    :AsianArts .
+
+
+###  http://benchmark/OWL2Bench#Astronomy
+:Astronomy rdf:type owl:NamedIndividual ,
+                    :Astronomy .
+
+
+###  http://benchmark/OWL2Bench#BackStroke
+:BackStroke rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Badminton
+:Badminton rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#BadmintonSingles
+:BadmintonSingles rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#BasketBall
+:BasketBall rdf:type owl:NamedIndividual ;
+            owl:sameAs :Basketball .
+
+
+###  http://benchmark/OWL2Bench#Basketball
+:Basketball rdf:type owl:NamedIndividual ,
+                     :Interest .
+
+
+###  http://benchmark/OWL2Bench#Biology
+:Biology rdf:type owl:NamedIndividual ,
+                  :Biology .
+
+
+###  http://benchmark/OWL2Bench#BiomedicalEngineering
+:BiomedicalEngineering rdf:type owl:NamedIndividual ,
+                                :BiomedicalEngineering .
+
+
+###  http://benchmark/OWL2Bench#BookReading
+:BookReading rdf:type owl:NamedIndividual ,
+                      :Interest .
+
+
+###  http://benchmark/OWL2Bench#ChemicalEngineering
+:ChemicalEngineering rdf:type owl:NamedIndividual ,
+                              :ChemicalEngineering .
+
+
+###  http://benchmark/OWL2Bench#Chemistry
+:Chemistry rdf:type owl:NamedIndividual ,
+                    :Chemistry .
+
+
+###  http://benchmark/OWL2Bench#CivilEngineering
+:CivilEngineering rdf:type owl:NamedIndividual ,
+                           :CivilEngineering .
+
+
+###  http://benchmark/OWL2Bench#ClassicalMusic
+:ClassicalMusic rdf:type owl:NamedIndividual ,
+                         :Interest .
+
+
+###  http://benchmark/OWL2Bench#ComedyMovie
+:ComedyMovie rdf:type owl:NamedIndividual ,
+                      :Interest .
+
+
+###  http://benchmark/OWL2Bench#ComputerEngineering
+:ComputerEngineering rdf:type owl:NamedIndividual ,
+                              :ComputerEngineering .
+
+
+###  http://benchmark/OWL2Bench#ComputerScience
+:ComputerScience rdf:type owl:NamedIndividual ,
+                          :ComputerScience .
+
+
+###  http://benchmark/OWL2Bench#Cricket
+:Cricket rdf:type owl:NamedIndividual ,
+                  :Interest .
+
+
+###  http://benchmark/OWL2Bench#DocumentaryMovie
+:DocumentaryMovie rdf:type owl:NamedIndividual ,
+                           :Interest .
+
+
+###  http://benchmark/OWL2Bench#Drama
+:Drama rdf:type owl:NamedIndividual ,
+                :Drama .
+
+
+###  http://benchmark/OWL2Bench#Economics
+:Economics rdf:type owl:NamedIndividual ,
+                    :Economics .
+
+
+###  http://benchmark/OWL2Bench#ElectricalEngineering
+:ElectricalEngineering rdf:type owl:NamedIndividual ,
+                                :ElectricalEngineering .
+
+
+###  http://benchmark/OWL2Bench#Engineering
+:Engineering rdf:type owl:NamedIndividual ,
+                      :Engineering .
+
+
+###  http://benchmark/OWL2Bench#English
+:English rdf:type owl:NamedIndividual ,
+                  :English .
+
+
+###  http://benchmark/OWL2Bench#FictionMovie
+:FictionMovie rdf:type owl:NamedIndividual ,
+                       :Interest .
+
+
+###  http://benchmark/OWL2Bench#FineArts
+:FineArts rdf:type owl:NamedIndividual ,
+                   :FineArts .
+
+
+###  http://benchmark/OWL2Bench#FootBall
+:FootBall rdf:type owl:NamedIndividual ;
+          owl:sameAs :Football .
+
+
+###  http://benchmark/OWL2Bench#Football
+:Football rdf:type owl:NamedIndividual ,
+                   :Interest .
+
+
+###  http://benchmark/OWL2Bench#FrontCrawl
+:FrontCrawl rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Geosciences
+:Geosciences rdf:type owl:NamedIndividual ,
+                      :Geosciences .
+
+
+###  http://benchmark/OWL2Bench#History
+:History rdf:type owl:NamedIndividual ,
+                  :History .
+
+
+###  http://benchmark/OWL2Bench#HorrorMovie
+:HorrorMovie rdf:type owl:NamedIndividual ,
+                      :Interest .
+
+
+###  http://benchmark/OWL2Bench#HumanResourceManagement
+:HumanResourceManagement rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Humanities
+:Humanities rdf:type owl:NamedIndividual ,
+                     :Humanities .
+
+
+###  http://benchmark/OWL2Bench#HumanitiesAndSocial
+:HumanitiesAndSocial rdf:type owl:NamedIndividual ,
+                              :HumanitiesAndSocialScience .
+
+
+###  http://benchmark/OWL2Bench#IndustryEngineering
+:IndustryEngineering rdf:type owl:NamedIndividual ,
+                              :IndustryEngineering .
+
+
+###  http://benchmark/OWL2Bench#LatinArts
+:LatinArts rdf:type owl:NamedIndividual ,
+                    :LatinArts .
+
+
+###  http://benchmark/OWL2Bench#LawnTennis
+:LawnTennis rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Linguistics
+:Linguistics rdf:type owl:NamedIndividual ,
+                      :Linguistics .
+
+
+###  http://benchmark/OWL2Bench#MarineScience
+:MarineScience rdf:type owl:NamedIndividual ,
+                        :MarineScience .
+
+
+###  http://benchmark/OWL2Bench#MarketingManagement
+:MarketingManagement rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#MaterialScienceEngineering
+:MaterialScienceEngineering rdf:type owl:NamedIndividual ,
+                                     :MaterialScienceEngineering .
+
+
+###  http://benchmark/OWL2Bench#MaterialsScience
+:MaterialsScience rdf:type owl:NamedIndividual ,
+                           :MaterialsScience .
+
+
+###  http://benchmark/OWL2Bench#Mathematics
+:Mathematics rdf:type owl:NamedIndividual ,
+                      :Mathematics .
+
+
+###  http://benchmark/OWL2Bench#MechanicalEngineering
+:MechanicalEngineering rdf:type owl:NamedIndividual ,
+                                :MechanicalEngineering .
+
+
+###  http://benchmark/OWL2Bench#MediaArtsAndSiences
+:MediaArtsAndSiences rdf:type owl:NamedIndividual ,
+                              :MediaArtsAndSciences .
+
+
+###  http://benchmark/OWL2Bench#MedievalArts
+:MedievalArts rdf:type owl:NamedIndividual ,
+                       :MedievalArts .
+
+
+###  http://benchmark/OWL2Bench#ModernArts
+:ModernArts rdf:type owl:NamedIndividual ,
+                     :ModernArts .
+
+
+###  http://benchmark/OWL2Bench#ModernLanguages
+:ModernLanguages rdf:type owl:NamedIndividual ,
+                          :ModernLanguages .
+
+
+###  http://benchmark/OWL2Bench#MusicsClass
+:MusicsClass rdf:type owl:NamedIndividual ,
+                      :MusicsClass .
+
+
+###  http://benchmark/OWL2Bench#NewspaperReading
+:NewspaperReading rdf:type owl:NamedIndividual ,
+                           :Interest .
+
+
+###  http://benchmark/OWL2Bench#OilPainting
+:OilPainting rdf:type owl:NamedIndividual ,
+                      :Interest .
+
+
+###  http://benchmark/OWL2Bench#P113
+:P113 rdf:type owl:NamedIndividual ,
+               :TechnicalReport ;
+      :hasAuthor :U0C0D0L0 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P124
+:P124 rdf:type owl:NamedIndividual ,
+               :UnofficialPublication ;
+      :hasAuthor :U0C0D0FP8 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P13
+:P13 rdf:type owl:NamedIndividual ,
+              :ConferencePaper ;
+     :hasAuthor :U0C0D0AssocP5 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P131
+:P131 rdf:type owl:NamedIndividual ,
+               :Article ;
+      :hasAuthor :U0C0D0VP0 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P143
+:P143 rdf:type owl:NamedIndividual ,
+               :TechnicalReport ;
+      :hasAuthor :U0C0D0VP0 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P145
+:P145 rdf:type owl:NamedIndividual ,
+               :Publication ;
+      :hasAuthor :U0C0D0AssocP7 ,
+                 :U0C0D0L1 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P153
+:P153 rdf:type owl:NamedIndividual ,
+               :JournalArticle ;
+      :hasAuthor :U0C0D0L0 ,
+                 :U0C0D0PD2 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P154
+:P154 rdf:type owl:NamedIndividual ,
+               :Publication ;
+      :hasAuthor :U0C0D0AP2 ;
+      :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P17
+:P17 rdf:type owl:NamedIndividual ,
+              :Specification ;
+     :hasAuthor :U0C0D0L1 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P23
+:P23 rdf:type owl:NamedIndividual ,
+              :Article ;
+     :hasAuthor :U0C0D0FP0 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P45
+:P45 rdf:type owl:NamedIndividual ,
+              :Article ;
+     :hasAuthor :U0C0D0L4 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P56
+:P56 rdf:type owl:NamedIndividual ,
+              :Software ;
+     :hasAuthor :U0C0D0L3 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P58
+:P58 rdf:type owl:NamedIndividual ,
+              :Article ;
+     :hasAuthor :U0C0D0VP2 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P72
+:P72 rdf:type owl:NamedIndividual ,
+              :Specification ;
+     :hasAuthor :U0C0D0AssocP1 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P79
+:P79 rdf:type owl:NamedIndividual ,
+              :Book ;
+     :hasAuthor :U0C0D0L1 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P80
+:P80 rdf:type owl:NamedIndividual ,
+              :Specification ;
+     :hasAuthor :U0C0D0PD0 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P84
+:P84 rdf:type owl:NamedIndividual ,
+              :UnofficialPublication ;
+     :hasAuthor :U0C0D0FP8 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P91
+:P91 rdf:type owl:NamedIndividual ,
+              :Specification ;
+     :hasAuthor :U0C0D0AP1 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P93
+:P93 rdf:type owl:NamedIndividual ,
+              :Software ;
+     :hasAuthor :U0C0D0L1 ,
+                :U0C0D0PD2 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P95
+:P95 rdf:type owl:NamedIndividual ,
+              :Specification ;
+     :hasAuthor :U0C0D0L2 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#P96
+:P96 rdf:type owl:NamedIndividual ,
+              :JournalArticle ;
+     :hasAuthor :U0C0D0VP1 ;
+     :hasPublicationDate "xx/xx/xx" .
+
+
+###  http://benchmark/OWL2Bench#PCGame
+:PCGame rdf:type owl:NamedIndividual ,
+                 :Interest .
+
+
+###  http://benchmark/OWL2Bench#PGStudent
+:PGStudent rdf:type owl:NamedIndividual ,
+                    :PGStudent .
+
+[ rdf:type owl:NegativePropertyAssertion ;
+   owl:sourceIndividual :PGStudent ;
+   owl:assertionProperty :enrollFor ;
+   owl:targetIndividual :UGprogram
+ ] .
+
+
+###  http://benchmark/OWL2Bench#PGprogram
+:PGprogram rdf:type owl:NamedIndividual ,
+                    :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#PerformingArts
+:PerformingArts rdf:type owl:NamedIndividual ,
+                         :PerformingArts .
+
+
+###  http://benchmark/OWL2Bench#PetroleumEngineering
+:PetroleumEngineering rdf:type owl:NamedIndividual ,
+                               :PetroleumlEngineering .
+
+
+###  http://benchmark/OWL2Bench#Philosophy
+:Philosophy rdf:type owl:NamedIndividual ,
+                     :Philosophy .
+
+
+###  http://benchmark/OWL2Bench#Physics
+:Physics rdf:type owl:NamedIndividual ,
+                  :Physics .
+
+
+###  http://benchmark/OWL2Bench#PopMusic
+:PopMusic rdf:type owl:NamedIndividual ,
+                   :Interest .
+
+
+###  http://benchmark/OWL2Bench#Psychology
+:Psychology rdf:type owl:NamedIndividual ,
+                     :Psychology .
+
+
+###  http://benchmark/OWL2Bench#PublicRelationsManagement
+:PublicRelationsManagement rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Religions
+:Religions rdf:type owl:NamedIndividual ,
+                    :Religions .
+
+
+###  http://benchmark/OWL2Bench#RockAndRollMusic
+:RockAndRollMusic rdf:type owl:NamedIndividual ,
+                           :Interest .
+
+
+###  http://benchmark/OWL2Bench#RomanticMovie
+:RomanticMovie rdf:type owl:NamedIndividual ,
+                        :Interest .
+
+
+###  http://benchmark/OWL2Bench#Science
+:Science rdf:type owl:NamedIndividual ,
+                  :Science .
+
+
+###  http://benchmark/OWL2Bench#Shopping
+:Shopping rdf:type owl:NamedIndividual ,
+                   :Interest .
+
+
+###  http://benchmark/OWL2Bench#Soccer
+:Soccer rdf:type owl:NamedIndividual ,
+                 :Interest .
+
+
+###  http://benchmark/OWL2Bench#SoloTravelling
+:SoloTravelling rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#StampCollecting
+:StampCollecting rdf:type owl:NamedIndividual ,
+                          :Interest .
+
+
+###  http://benchmark/OWL2Bench#Statistics
+:Statistics rdf:type owl:NamedIndividual ,
+                     :Statistics .
+
+
+###  http://benchmark/OWL2Bench#Swimming
+:Swimming rdf:type owl:NamedIndividual ,
+                   :Interest .
+
+
+###  http://benchmark/OWL2Bench#T20Cricket
+:T20Cricket rdf:type owl:NamedIndividual ,
+                     :Interest .
+
+
+###  http://benchmark/OWL2Bench#TableTennis
+:TableTennis rdf:type owl:NamedIndividual .
+
+
+###  http://benchmark/OWL2Bench#Tennis
+:Tennis rdf:type owl:NamedIndividual ,
+                 :Interest .
+
+
+###  http://benchmark/OWL2Bench#TheatreAndDance
+:TheatreAndDance rdf:type owl:NamedIndividual ,
+                          :TheatreAndDance .
+
+
+###  http://benchmark/OWL2Bench#ThrillerMovie
+:ThrillerMovie rdf:type owl:NamedIndividual ,
+                        :Interest .
+
+
+###  http://benchmark/OWL2Bench#Travelling
+:Travelling rdf:type owl:NamedIndividual ,
+                     :Interest .
+
+
+###  http://benchmark/OWL2Bench#U0
+:U0 rdf:type owl:NamedIndividual ,
+             :University ;
+    :hasResearchGroup :U0RG0 ,
+                      :U0RG1 ,
+                      :U0RG2 ,
+                      :U0RG3 ,
+                      :U0RG4 ,
+                      :U0RG5 ,
+                      :U0RG6 ;
+    :hasCode "U0" ;
+    :hasName "U0 University of Meadow Woods" .
+
+
+###  http://benchmark/OWL2Bench#U0C0
+:U0C0 rdf:type owl:NamedIndividual ,
+               :College ;
+      :isAffiliatedOrganizationOf :U0 ;
+      :isPartOf :U0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0
+:U0C0D0 rdf:type owl:NamedIndividual ,
+                 :Department ;
+        :hasProgram :U0C0D0UG ;
+        :isPartOf :U0C0 ;
+        :offerCourse :U0C0D0EC21 ,
+                     :U0C0D0EC22 ,
+                     :U0C0D0EC23 ,
+                     :U0C0D0EC24 ,
+                     :U0C0D0EC25 ,
+                     :U0C0D0EC26 ,
+                     :U0C0D0EC27 ,
+                     :U0C0D0EC28 ,
+                     :U0C0D0EC29 ,
+                     :U0C0D0EC30 ,
+                     :U0C0D0EC31 ,
+                     :U0C0D0EC32 ,
+                     :U0C0D0EC33 ,
+                     :U0C0D0EC34 ,
+                     :U0C0D0EC35 ,
+                     :U0C0D0EC36 ,
+                     :U0C0D0EC37 ,
+                     :U0C0D0UGC0 ,
+                     :U0C0D0UGC1 ,
+                     :U0C0D0UGC10 ,
+                     :U0C0D0UGC11 ,
+                     :U0C0D0UGC12 ,
+                     :U0C0D0UGC13 ,
+                     :U0C0D0UGC14 ,
+                     :U0C0D0UGC15 ,
+                     :U0C0D0UGC16 ,
+                     :U0C0D0UGC17 ,
+                     :U0C0D0UGC18 ,
+                     :U0C0D0UGC19 ,
+                     :U0C0D0UGC2 ,
+                     :U0C0D0UGC20 ,
+                     :U0C0D0UGC3 ,
+                     :U0C0D0UGC4 ,
+                     :U0C0D0UGC5 ,
+                     :U0C0D0UGC6 ,
+                     :U0C0D0UGC7 ,
+                     :U0C0D0UGC8 ,
+                     :U0C0D0UGC9 ;
+        :hasName "Department of HumanResourceManagement" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP0
+:U0C0D0AP0 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :isCrazyAbout :Football ;
+           :likes :BookReading ,
+                  :OilPainting ,
+                  :RomanticMovie ,
+                  :SoloTravelling ;
+           :teachesCourse :U0C0D0EC21 ,
+                          :U0C0D0EC34 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP0@bench.com" ;
+           :hasFirstName "Arsyn" ;
+           :hasID "U0C0D0AP0" ;
+           :hasLastName "Obitz" ;
+           :hasName "Arsyn Obitz" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP1
+:U0C0D0AP1 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :Shopping ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :loves :Football ;
+           :teachesCourse :U0C0D0EC33 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP1@bench.com" ;
+           :hasFirstName "Dhyana" ;
+           :hasID "U0C0D0AP1" ;
+           :hasLastName "Saether" ;
+           :hasName "Dhyana Saether" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP2
+:U0C0D0AP2 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :Shopping ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :likes :LawnTennis ,
+                  :OilPainting ,
+                  :SoloTravelling ;
+           :teachesCourse :U0C0D0EC35 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP2@bench.com" ;
+           :hasFirstName "Ishi" ;
+           :hasID "U0C0D0AP2" ;
+           :hasLastName "Dentlinger" ;
+           :hasName "Ishi Dentlinger" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP3
+:U0C0D0AP3 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :isCrazyAbout :SoloTravelling ;
+           :likes :ActionMovie ;
+           :teachesCourse :U0C0D0EC34 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP3@bench.com" ;
+           :hasFirstName "Devani" ;
+           :hasID "U0C0D0AP3" ;
+           :hasLastName "Homich" ;
+           :hasName "Devani Homich" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP4
+:U0C0D0AP4 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :FictionMovie ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :knows :U0C0D0VP2 ;
+           :loves :OilPainting ;
+           :teachesCourse :U0C0D0UGC10 ,
+                          :U0C0D0UGC20 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP4@bench.com" ;
+           :hasFirstName "Scout" ;
+           :hasID "U0C0D0AP4" ;
+           :hasLastName "Crudele" ;
+           :hasName "Scout Crudele" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP5
+:U0C0D0AP5 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :StampCollecting ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :isCrazyAbout :ArticleReading ;
+           :likes :Football ,
+                  :RockAndRollMusic ,
+                  :ThrillerMovie ,
+                  :VideoGame ;
+           :teachesCourse :U0C0D0EC33 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP5@bench.com" ;
+           :hasFirstName "Bert" ;
+           :hasID "U0C0D0AP5" ;
+           :hasLastName "Malinski" ;
+           :hasName "Bert Malinski" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP6
+:U0C0D0AP6 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :FrontCrawl ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :loves :VideoGame ;
+           :teachesCourse :U0C0D0EC23 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP6@bench.com" ;
+           :hasFirstName "Janiyha" ;
+           :hasID "U0C0D0AP6" ;
+           :hasLastName "Gouker" ;
+           :hasName "Janiyha Gouker" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AP7
+:U0C0D0AP7 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isAssistantProfessorOf :U0C0D0 ;
+           :isCrazyAbout :RomanticMovie ;
+           :likes :BadmintonSingles ,
+                  :HorrorMovie ,
+                  :RockAndRollMusic ,
+                  :VideoGame ;
+           :loves :T20Cricket ;
+           :teachesCourse :U0C0D0EC27 ,
+                          :U0C0D0UGC12 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0AP7@bench.com" ;
+           :hasFirstName "Jamyah" ;
+           :hasID "U0C0D0AP7" ;
+           :hasLastName "Bramley" ;
+           :hasName "Jamyah Bramley" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP0
+:U0C0D0AssocP0 rdf:type owl:NamedIndividual ,
+                        :Man ;
+               :dislikes :FrontCrawl ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :likes :VideoGame ;
+               :loves :ActionMovie ;
+               :teachesCourse :U0C0D0EC23 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP0@bench.com" ;
+               :hasFirstName "Lia" ;
+               :hasID "U0C0D0AssocP0" ;
+               :hasLastName "Torina" ;
+               :hasName "Lia Torina" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP1
+:U0C0D0AssocP1 rdf:type owl:NamedIndividual ,
+                        :Man ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :likes :Basketball ,
+                      :ComedyMovie ,
+                      :HorrorMovie ,
+                      :PopMusic ;
+               :loves :AbstractPainting ;
+               :teachesCourse :U0C0D0EC24 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP1@bench.com" ;
+               :hasFirstName "Rayelle" ;
+               :hasID "U0C0D0AssocP1" ;
+               :hasLastName "Butte" ;
+               :hasName "Rayelle Butte" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP2
+:U0C0D0AssocP2 rdf:type owl:NamedIndividual ,
+                        :Woman ;
+               :dislikes :StampCollecting ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :teachesCourse :U0C0D0EC29 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP2@bench.com" ;
+               :hasFirstName "Kaydance" ;
+               :hasID "U0C0D0AssocP2" ;
+               :hasLastName "Fernsler" ;
+               :hasName "Kaydance Fernsler" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP3
+:U0C0D0AssocP3 rdf:type owl:NamedIndividual ,
+                        :Woman ;
+               :dislikes :StampCollecting ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :loves :ClassicalMusic ;
+               :teachesCourse :U0C0D0UGC11 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP3@bench.com" ;
+               :hasFirstName "Zariana" ;
+               :hasID "U0C0D0AssocP3" ;
+               :hasLastName "Hansis" ;
+               :hasName "Zariana Hansis" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP4
+:U0C0D0AssocP4 rdf:type owl:NamedIndividual ,
+                        :Man ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :isCrazyAbout :HorrorMovie ;
+               :likes :RockAndRollMusic ;
+               :teachesCourse :U0C0D0EC27 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP4@bench.com" ;
+               :hasFirstName "Leola" ;
+               :hasID "U0C0D0AssocP4" ;
+               :hasLastName "Capodice" ;
+               :hasName "Leola Capodice" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP5
+:U0C0D0AssocP5 rdf:type owl:NamedIndividual ,
+                        :Man ;
+               :dislikes :FictionMovie ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :isCrazyAbout :RomanticMovie ;
+               :teachesCourse :U0C0D0EC22 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP5@bench.com" ;
+               :hasFirstName "Zyla" ;
+               :hasID "U0C0D0AssocP5" ;
+               :hasLastName "Molski" ;
+               :hasName "Zyla Molski" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP6
+:U0C0D0AssocP6 rdf:type owl:NamedIndividual ,
+                        :Man ;
+               :dislikes :FrontCrawl ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :isCrazyAbout :DocumentaryMovie ;
+               :likes :ActionMovie ,
+                      :Basketball ,
+                      :LawnTennis ;
+               :teachesCourse :U0C0D0UGC7 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP6@bench.com" ;
+               :hasFirstName "Arbri" ;
+               :hasID "U0C0D0AssocP6" ;
+               :hasLastName "Hsia" ;
+               :hasName "Arbri Hsia" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0AssocP7
+:U0C0D0AssocP7 rdf:type owl:NamedIndividual ,
+                        :Woman ;
+               :dislikes :StampCollecting ;
+               :hasDoctoralDegreeFrom :U0 ;
+               :hasMasterDegreeFrom :U0 ;
+               :hasUndergraduateDegreeFrom :U0 ;
+               :isAssociateProfessorOf :U0C0D0 ;
+               :isCrazyAbout :OilPainting ;
+               :likes :ArticleReading ,
+                      :T20Cricket ,
+                      :ThrillerMovie ;
+               :loves :HorrorMovie ;
+               :teachesCourse :U0C0D0UGC16 ,
+                              :U0C0D0UGC3 ;
+               :hasAge "x" ;
+               :hasEmailAddress "U0C0D0AssocP7@bench.com" ;
+               :hasFirstName "Khyla" ;
+               :hasID "U0C0D0AssocP7" ;
+               :hasLastName "Banson" ;
+               :hasName "Khyla Banson" ;
+               :hasResearchInterest "SomeResearchTopic" ;
+               :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC21
+:U0C0D0EC21 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0FP5 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC22
+:U0C0D0EC22 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0FP6 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC23
+:U0C0D0EC23 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0FP7 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC24
+:U0C0D0EC24 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0FP8 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC25
+:U0C0D0EC25 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0VP0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC26
+:U0C0D0EC26 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0VP1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC27
+:U0C0D0EC27 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0VP2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC28
+:U0C0D0EC28 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0VP3 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC29
+:U0C0D0EC29 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0VP4 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC30
+:U0C0D0EC30 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0L0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC31
+:U0C0D0EC31 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0L1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC32
+:U0C0D0EC32 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0L2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC33
+:U0C0D0EC33 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0L3 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC34
+:U0C0D0EC34 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0L4 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC35
+:U0C0D0EC35 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0PD0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC36
+:U0C0D0EC36 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0PD1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0EC37
+:U0C0D0EC37 rdf:type owl:NamedIndividual ,
+                     :ElectiveCourse ;
+            :isTaughtBy :U0C0D0PD2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP0
+:U0C0D0FP0 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isFullProfessorOf :U0C0D0 ;
+           :loves :OilPainting ;
+           :teachesCourse :U0C0D0UGC9 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP0@bench.com" ;
+           :hasFirstName "Ahria" ;
+           :hasID "U0C0D0FP0" ;
+           :hasLastName "Mccalley" ;
+           :hasName "Ahria Mccalley" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP1
+:U0C0D0FP1 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :NewspaperReading ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :Football ;
+           :isFullProfessorOf :U0C0D0 ;
+           :likes :BackStroke ;
+           :teachesCourse :U0C0D0UGC1 ,
+                          :U0C0D0UGC2 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP1@bench.com" ;
+           :hasFirstName "Gracelyn" ;
+           :hasID "U0C0D0FP1" ;
+           :hasLastName "Jusufi" ;
+           :hasName "Gracelyn Jusufi" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP2
+:U0C0D0FP2 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :NewspaperReading ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :PopMusic ;
+           :isFullProfessorOf :U0C0D0 ;
+           :loves :VideoGame ;
+           :teachesCourse :U0C0D0EC36 ,
+                          :U0C0D0UGC1 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP2@bench.com" ;
+           :hasFirstName "Maesynn" ;
+           :hasID "U0C0D0FP2" ;
+           :hasLastName "Legesse" ;
+           :hasName "Maesynn Legesse" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP3
+:U0C0D0FP3 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :SoloTravelling ;
+           :isFullProfessorOf :U0C0D0 ;
+           :teachesCourse :U0C0D0EC32 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP3@bench.com" ;
+           :hasFirstName "Lun" ;
+           :hasID "U0C0D0FP3" ;
+           :hasLastName "Iorillo" ;
+           :hasName "Lun Iorillo" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP4
+:U0C0D0FP4 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :HorrorMovie ;
+           :isFullProfessorOf :U0C0D0 ;
+           :isHeadOf :U0C0D0 ;
+           :likes :ActionMovie ,
+                  :Basketball ,
+                  :T20Cricket ;
+           :teachesCourse :U0C0D0UGC0 ,
+                          :U0C0D0UGC6 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP4@bench.com" ;
+           :hasFirstName "Josalyn" ;
+           :hasID "U0C0D0FP4" ;
+           :hasLastName "Soranno" ;
+           :hasName "Josalyn Soranno" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP5
+:U0C0D0FP5 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :FictionMovie ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :ClassicalMusic ;
+           :isFullProfessorOf :U0C0D0 ;
+           :teachesCourse :U0C0D0EC37 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP5@bench.com" ;
+           :hasFirstName "Rommel" ;
+           :hasID "U0C0D0FP5" ;
+           :hasLastName "Montford" ;
+           :hasName "Rommel Montford" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP6
+:U0C0D0FP6 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :Shopping ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :BackStroke ;
+           :isFullProfessorOf :U0C0D0 ;
+           :likes :BadmintonSingles ,
+                  :OilPainting ,
+                  :T20Cricket ;
+           :loves :ClassicalMusic ;
+           :teachesCourse :U0C0D0EC29 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP6@bench.com" ;
+           :hasFirstName "Elinora" ;
+           :hasID "U0C0D0FP6" ;
+           :hasLastName "Sansom" ;
+           :hasName "Elinora Sansom" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP7
+:U0C0D0FP7 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :StampCollecting ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isFullProfessorOf :U0C0D0 ;
+           :likes :ActionMovie ;
+           :teachesCourse :U0C0D0EC35 ,
+                          :U0C0D0UGC5 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP7@bench.com" ;
+           :hasFirstName "Zmya" ;
+           :hasID "U0C0D0FP7" ;
+           :hasLastName "Reitmeyer" ;
+           :hasName "Zmya Reitmeyer" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0FP8
+:U0C0D0FP8 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :dislikes :NewspaperReading ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isFullProfessorOf :U0C0D0 ;
+           :likes :BookReading ,
+                  :ClassicalMusic ,
+                  :LawnTennis ,
+                  :RockAndRollMusic ;
+           :loves :SoloTravelling ;
+           :teachesCourse :U0C0D0EC21 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0FP8@bench.com" ;
+           :hasFirstName "Naelle" ;
+           :hasID "U0C0D0FP8" ;
+           :hasLastName "Heiner" ;
+           :hasName "Naelle Heiner" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0L0
+:U0C0D0L0 rdf:type owl:NamedIndividual ,
+                   :Woman ;
+          :hasMasterDegreeFrom :U0 ;
+          :hasUndergraduateDegreeFrom :U0 ;
+          :isLecturerOf :U0C0D0 ;
+          :likes :BackStroke ;
+          :teachesCourse :U0C0D0EC21 ,
+                         :U0C0D0UGC16 ;
+          :hasAge "x" ;
+          :hasEmailAddress "U0C0D0L0@bench.com" ;
+          :hasFirstName "Theodor" ;
+          :hasID "U0C0D0L0" ;
+          :hasLastName "Zieber" ;
+          :hasName "Theodor Zieber" ;
+          :hasResearchInterest "SomeResearchTopic" ;
+          :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0L1
+:U0C0D0L1 rdf:type owl:NamedIndividual ,
+                   :Woman ;
+          :dislikes :NewspaperReading ;
+          :hasMasterDegreeFrom :U0 ;
+          :hasUndergraduateDegreeFrom :U0 ;
+          :isLecturerOf :U0C0D0 ;
+          :likes :TableTennis ;
+          :teachesCourse :U0C0D0UGC13 ,
+                         :U0C0D0UGC17 ;
+          :hasAge "x" ;
+          :hasEmailAddress "U0C0D0L1@bench.com" ;
+          :hasFirstName "Barkon" ;
+          :hasID "U0C0D0L1" ;
+          :hasLastName "Zuno" ;
+          :hasName "Barkon Zuno" ;
+          :hasResearchInterest "SomeResearchTopic" ;
+          :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0L2
+:U0C0D0L2 rdf:type owl:NamedIndividual ,
+                   :Man ;
+          :dislikes :StampCollecting ;
+          :hasMasterDegreeFrom :U0 ;
+          :hasUndergraduateDegreeFrom :U0 ;
+          :isLecturerOf :U0C0D0 ;
+          :likes :DocumentaryMovie ,
+                 :VideoGame ;
+          :loves :RockAndRollMusic ;
+          :teachesCourse :U0C0D0UGC6 ;
+          :hasAge "x" ;
+          :hasEmailAddress "U0C0D0L2@bench.com" ;
+          :hasFirstName "Adelina" ;
+          :hasID "U0C0D0L2" ;
+          :hasLastName "Grutzius" ;
+          :hasName "Adelina Grutzius" ;
+          :hasResearchInterest "SomeResearchTopic" ;
+          :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0L3
+:U0C0D0L3 rdf:type owl:NamedIndividual ,
+                   :Woman ;
+          :dislikes :FictionMovie ;
+          :hasMasterDegreeFrom :U0 ;
+          :hasUndergraduateDegreeFrom :U0 ;
+          :isLecturerOf :U0C0D0 ;
+          :likes :AbstractPainting ,
+                 :ArticleReading ,
+                 :DocumentaryMovie ;
+          :teachesCourse :U0C0D0EC32 ,
+                         :U0C0D0UGC17 ;
+          :hasAge "x" ;
+          :hasEmailAddress "U0C0D0L3@bench.com" ;
+          :hasFirstName "Alfonzo" ;
+          :hasID "U0C0D0L3" ;
+          :hasLastName "Scheeler" ;
+          :hasName "Alfonzo Scheeler" ;
+          :hasResearchInterest "SomeResearchTopic" ;
+          :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0L4
+:U0C0D0L4 rdf:type owl:NamedIndividual ,
+                   :Man ;
+          :hasMasterDegreeFrom :U0 ;
+          :hasUndergraduateDegreeFrom :U0 ;
+          :isLecturerOf :U0C0D0 ;
+          :teachesCourse :U0C0D0UGC6 ;
+          :hasAge "x" ;
+          :hasEmailAddress "U0C0D0L4@bench.com" ;
+          :hasFirstName "Coree" ;
+          :hasID "U0C0D0L4" ;
+          :hasLastName "Amedio" ;
+          :hasName "Coree Amedio" ;
+          :hasResearchInterest "SomeResearchTopic" ;
+          :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0PD0
+:U0C0D0PD0 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :StampCollecting ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :ThrillerMovie ;
+           :isPostDocOf :U0C0D0 ;
+           :loves :TableTennis ;
+           :teachesCourse :U0C0D0EC25 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0PD0@bench.com" ;
+           :hasFirstName "Kevyn" ;
+           :hasID "U0C0D0PD0" ;
+           :hasLastName "Mercardo" ;
+           :hasName "Kevyn Mercardo" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0PD1
+:U0C0D0PD1 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :PCGame ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :LawnTennis ;
+           :isPostDocOf :U0C0D0 ;
+           :likes :BadmintonSingles ;
+           :loves :ClassicalMusic ;
+           :teachesCourse :U0C0D0UGC10 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0PD1@bench.com" ;
+           :hasFirstName "Lavayah" ;
+           :hasID "U0C0D0PD1" ;
+           :hasLastName "Burgtorf" ;
+           :hasName "Lavayah Burgtorf" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0PD2
+:U0C0D0PD2 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :PCGame ;
+           :hasCollaborationWith :U0C0D0L0 ,
+                                 :U0C0D0L1 ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isPostDocOf :U0C0D0 ;
+           :likes :Football ,
+                  :LawnTennis ,
+                  :SoloTravelling ,
+                  :TableTennis ;
+           :teachesCourse :U0C0D0UGC1 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0PD2@bench.com" ;
+           :hasFirstName "Sidhant" ;
+           :hasID "U0C0D0PD2" ;
+           :hasLastName "Ogbonna" ;
+           :hasName "Sidhant Ogbonna" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UG
+:U0C0D0UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC0
+:U0C0D0UGC0 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC1
+:U0C0D0UGC1 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC10
+:U0C0D0UGC10 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC11
+:U0C0D0UGC11 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP3 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC12
+:U0C0D0UGC12 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP4 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC13
+:U0C0D0UGC13 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP5 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC14
+:U0C0D0UGC14 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP6 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC15
+:U0C0D0UGC15 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0AssocP7 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC16
+:U0C0D0UGC16 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0FP0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC17
+:U0C0D0UGC17 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0FP1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC18
+:U0C0D0UGC18 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0FP2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC19
+:U0C0D0UGC19 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0FP3 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC2
+:U0C0D0UGC2 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP2 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC20
+:U0C0D0UGC20 rdf:type owl:NamedIndividual ,
+                      :UGCourse ;
+             :isTaughtBy :U0C0D0FP4 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC3
+:U0C0D0UGC3 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP3 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC4
+:U0C0D0UGC4 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP4 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC5
+:U0C0D0UGC5 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP5 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC6
+:U0C0D0UGC6 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP6 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC7
+:U0C0D0UGC7 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AP7 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC8
+:U0C0D0UGC8 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AssocP0 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0UGC9
+:U0C0D0UGC9 rdf:type owl:NamedIndividual ,
+                     :UGCourse ;
+            :isTaughtBy :U0C0D0AssocP1 .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0VP0
+:U0C0D0VP0 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :ThrillerMovie ;
+           :isVisitingProfessorOf :U0C0D0 ;
+           :likes :BadmintonSingles ,
+                  :ClassicalMusic ;
+           :loves :TableTennis ;
+           :teachesCourse :U0C0D0EC27 ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0VP0@bench.com" ;
+           :hasFirstName "Jahel" ;
+           :hasID "U0C0D0VP0" ;
+           :hasLastName "Loizzo" ;
+           :hasName "Jahel Loizzo" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0VP1
+:U0C0D0VP1 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :FictionMovie ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isVisitingProfessorOf :U0C0D0 ;
+           :likes :ArticleReading ,
+                  :ThrillerMovie ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0VP1@bench.com" ;
+           :hasFirstName "Rishav" ;
+           :hasID "U0C0D0VP1" ;
+           :hasLastName "Langhauser" ;
+           :hasName "Rishav Langhauser" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0VP2
+:U0C0D0VP2 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :dislikes :Shopping ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :LawnTennis ;
+           :isVisitingProfessorOf :U0C0D0 ;
+           :likes :ActionMovie ,
+                  :Football ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0VP2@bench.com" ;
+           :hasFirstName "Bodyn" ;
+           :hasID "U0C0D0VP2" ;
+           :hasLastName "Otruba" ;
+           :hasName "Bodyn Otruba" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0VP3
+:U0C0D0VP3 rdf:type owl:NamedIndividual ,
+                    :Woman ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isVisitingProfessorOf :U0C0D0 ;
+           :knows :U0C0D0AP4 ;
+           :likes :ClassicalMusic ,
+                  :RockAndRollMusic ,
+                  :RomanticMovie ;
+           :loves :PopMusic ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0VP3@bench.com" ;
+           :hasFirstName "Roselia" ;
+           :hasID "U0C0D0VP3" ;
+           :hasLastName "Staat" ;
+           :hasName "Roselia Staat" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D0VP4
+:U0C0D0VP4 rdf:type owl:NamedIndividual ,
+                    :Man ;
+           :hasDoctoralDegreeFrom :U0 ;
+           :hasMasterDegreeFrom :U0 ;
+           :hasUndergraduateDegreeFrom :U0 ;
+           :isCrazyAbout :Football ;
+           :isVisitingProfessorOf :U0C0D0 ;
+           :likes :T20Cricket ,
+                  :VideoGame ;
+           :loves :ComedyMovie ;
+           :hasAge "x" ;
+           :hasEmailAddress "U0C0D0VP4@bench.com" ;
+           :hasFirstName "Daliyla" ;
+           :hasID "U0C0D0VP4" ;
+           :hasLastName "Firth" ;
+           :hasName "Daliyla Firth" ;
+           :hasResearchInterest "SomeResearchTopic" ;
+           :hasTelephone "xxxxxxxxxx" .
+
+
+###  http://benchmark/OWL2Bench#U0C0D1UG
+:U0C0D1UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C0D2PG
+:U0C0D2PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C0D2PhD
+:U0C0D2PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C0D2UG
+:U0C0D2UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C1
+:U0C1 rdf:type owl:NamedIndividual ,
+               :College ;
+      :hasCollegeDiscipline :FineArts ;
+      :isAffiliatedOrganizationOf :U0 ;
+      :isPartOf :U0 .
+
+
+###  http://benchmark/OWL2Bench#U0C1D0UG
+:U0C1D0UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C1D1PG
+:U0C1D1PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C1D1UG
+:U0C1D1UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C1D2UG
+:U0C1D2UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C1D3UG
+:U0C1D3UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2
+:U0C2 rdf:type owl:NamedIndividual ,
+               :College ;
+      :hasCollegeDiscipline :HumanitiesAndSocial ;
+      :isAffiliatedOrganizationOf :U0 ;
+      :isPartOf :U0 .
+
+
+###  http://benchmark/OWL2Bench#U0C2D0UG
+:U0C2D0UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D1PG
+:U0C2D1PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D1PhD
+:U0C2D1PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D1UG
+:U0C2D1UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D2UG
+:U0C2D2UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D3PG
+:U0C2D3PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D3PhD
+:U0C2D3PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C2D3UG
+:U0C2D3UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3
+:U0C3 rdf:type owl:NamedIndividual ,
+               :College ;
+      :hasCollegeDiscipline :Engineering ;
+      :isAffiliatedOrganizationOf :U0 ;
+      :isPartOf :U0 .
+
+
+###  http://benchmark/OWL2Bench#U0C3D0PG
+:U0C3D0PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3D0PhD
+:U0C3D0PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3D0UG
+:U0C3D0UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3D1PG
+:U0C3D1PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3D1UG
+:U0C3D1UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C3D2UG
+:U0C3D2UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4
+:U0C4 rdf:type owl:NamedIndividual ,
+               :College ;
+      :hasCollegeDiscipline :Science ;
+      :isAffiliatedOrganizationOf :U0 ;
+      :isPartOf :U0 .
+
+
+###  http://benchmark/OWL2Bench#U0C4D0UG
+:U0C4D0UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D1PG
+:U0C4D1PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D1PhD
+:U0C4D1PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D1UG
+:U0C4D1UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D2PG
+:U0C4D2PG rdf:type owl:NamedIndividual ,
+                   :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D2PhD
+:U0C4D2PhD rdf:type owl:NamedIndividual ,
+                    :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0C4D2UG
+:U0C4D2UG rdf:type owl:NamedIndividual ,
+                   :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0RG0
+:U0RG0 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG0RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG0RP
+:U0RG0RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG1
+:U0RG1 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG1RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG1RP
+:U0RG1RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG2
+:U0RG2 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG2RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG2RP
+:U0RG2RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG3
+:U0RG3 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG3RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG3RP
+:U0RG3RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG4
+:U0RG4 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG4RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG4RP
+:U0RG4RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG5
+:U0RG5 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG5RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG5RP
+:U0RG5RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0RG6
+:U0RG6 rdf:type owl:NamedIndividual ,
+                :ResearchGroup ;
+       :hasResearchProject :U0RG6RP .
+
+
+###  http://benchmark/OWL2Bench#U0RG6RP
+:U0RG6RP rdf:type owl:NamedIndividual ,
+                  :ResearchProject .
+
+
+###  http://benchmark/OWL2Bench#U0WC0
+:U0WC0 rdf:type owl:NamedIndividual ,
+                :College ;
+       :hasCollegeDiscipline :Science ;
+       :isAffiliatedOrganizationOf :U0 ;
+       :isPartOf :U0 ;
+       :hasName "Women College of Science" .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D0PG
+:U0WC0D0PG rdf:type owl:NamedIndividual ,
+                    :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D0PhD
+:U0WC0D0PhD rdf:type owl:NamedIndividual ,
+                     :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D0UG
+:U0WC0D0UG rdf:type owl:NamedIndividual ,
+                    :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D1PG
+:U0WC0D1PG rdf:type owl:NamedIndividual ,
+                    :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D1UG
+:U0WC0D1UG rdf:type owl:NamedIndividual ,
+                    :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D2UG
+:U0WC0D2UG rdf:type owl:NamedIndividual ,
+                    :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D3PG
+:U0WC0D3PG rdf:type owl:NamedIndividual ,
+                    :PGProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D3PhD
+:U0WC0D3PhD rdf:type owl:NamedIndividual ,
+                     :PhDProgram .
+
+
+###  http://benchmark/OWL2Bench#U0WC0D3UG
+:U0WC0D3UG rdf:type owl:NamedIndividual ,
+                    :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#UGStudent
+:UGStudent rdf:type owl:NamedIndividual ,
+                    :UGStudent .
+
+[ rdf:type owl:NegativePropertyAssertion ;
+   owl:sourceIndividual :UGStudent ;
+   owl:assertionProperty :enrollFor ;
+   owl:targetIndividual :PGprogram
+ ] .
+
+
+###  http://benchmark/OWL2Bench#UGprogram
+:UGprogram rdf:type owl:NamedIndividual ,
+                    :UGProgram .
+
+
+###  http://benchmark/OWL2Bench#VideoGame
+:VideoGame rdf:type owl:NamedIndividual ,
+                    :Interest .
+
+
+###  http://benchmark/OWL2Bench#null
+:null rdf:type owl:NamedIndividual ;
+      :dislikes :Shopping ;
+      :isCrazyAbout :RomanticMovie ;
+      :likes :ComedyMovie ,
+             :HorrorMovie ,
+             :TableTennis .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AeronauticalEngineering
+                :BiomedicalEngineering
+                :ChemicalEngineering
+                :CivilEngineering
+                :ComputerEngineering
+                :ElectricalEngineering
+                :IndustryEngineering
+                :MaterialScienceEngineering
+                :MechanicalEngineering
+                :PetroleumlEngineering
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Anthropology
+                :Economics
+                :English
+                :History
+                :Humanities
+                :Linguistics
+                :ModernLanguages
+                :Philosophy
+                :Psychology
+                :Religions
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Astronomy
+                :Biology
+                :Chemistry
+                :ComputerScience
+                :Geosciences
+                :MarineScience
+                :MaterialsScience
+                :Mathematics
+                :Physics
+                :Statistics
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Badminton
+                :BasketBall
+                :Cricket
+                :Football
+                :Soccer
+                :Swimming
+                :Tennis
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Badminton
+                :BasketBall
+                :Cricket
+                :Football
+                :Swimming
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :DesignManagement
+                :FinancialAndAccountingManagement
+                :HumanResourceManagement
+                :MarketingManagement
+                :OperationsManagement
+                :ProjectManagement
+                :PublicRelationsManagement
+                :RiskManagement
+                :SalesManagement
+                :SupplyChainManagement
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Engineering
+                :FineArts
+                :HumanitiesAndSocialScience
+                :Management
+                :Science
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Game
+                :Movie
+                :Music
+                :Painting
+                :Sports
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :PGProgram
+                :PhDProgram
+                :UGProgram
+              )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :AbstractPainting
+                        :ActionMovie
+                        :AeronauticalEngineering
+                        :Anthropology
+                        :Architecture
+                        :ArticleReading
+                        :AsianArts
+                        :Astronomy
+                        :BackStroke
+                        :Badminton
+                        :Basketball
+                        :Biology
+                        :BiomedicalEngineering
+                        :BookReading
+                        :ChemicalEngineering
+                        :Chemistry
+                        :CivilEngineering
+                        :ClassicalMusic
+                        :ComedyMovie
+                        :ComputerEngineering
+                        :ComputerScience
+                        :Cricket
+                        :DocumentaryMovie
+                        :Drama
+                        :Economics
+                        :ElectricalEngineering
+                        :English
+                        :FictionMovie
+                        :Football
+                        :FrontCrawl
+                        :Geosciences
+                        :History
+                        :HorrorMovie
+                        :Humanities
+                        :IndustryEngineering
+                        :LatinArts
+                        :Linguistics
+                        :MarineScience
+                        :MaterialScienceEngineering
+                        :MaterialsScience
+                        :Mathematics
+                        :MechanicalEngineering
+                        :MediaArtsAndSiences
+                        :MedievalArts
+                        :ModernArts
+                        :ModernLanguages
+                        :MusicsClass
+                        :NewspaperReading
+                        :OilPainting
+                        :PCGame
+                        :PerformingArts
+                        :PetroleumEngineering
+                        :Philosophy
+                        :Physics
+                        :PopMusic
+                        :Psychology
+                        :Religions
+                        :RockAndRollMusic
+                        :RomanticMovie
+                        :Shopping
+                        :Soccer
+                        :StampCollecting
+                        :Statistics
+                        :Swimming
+                        :T20Cricket
+                        :Tennis
+                        :TheatreAndDance
+                        :ThrillerMovie
+                        :Travelling
+                        :VideoGame
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :BasketBall
+                        :Football
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Basketball
+                        :FootBall
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.17.2020-11-07T15:03:35Z) https://github.com/owlcs/owlapi/

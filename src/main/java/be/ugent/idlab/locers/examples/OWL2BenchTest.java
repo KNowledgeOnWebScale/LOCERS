@@ -18,10 +18,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
-/**
- * @author pbonte
- *
- */
 public class OWL2BenchTest {
 
 	static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -66,7 +62,7 @@ public class OWL2BenchTest {
 				//remove axioms
 				long finalTime = System.currentTimeMillis() - time1;
 				System.out.println("Time:\t"+finalTime);
-				//System.out.println(mat);
+				System.out.println(mat);
 				System.out.println("Size:\t"+result2.size());
 				System.out.println("Cache size:\t" + cache.getSize());
 			}

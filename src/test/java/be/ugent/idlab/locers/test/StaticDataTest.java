@@ -1,11 +1,13 @@
 /**
  * 
  */
-package be.ugent.idlab.loreo.test;
+package be.ugent.idlab.locers.test;
 
-import be.ugent.idlab.loreo.cache.*;
-import be.ugent.idlab.loreo.query.CacheQuery;
-import be.ugent.idlab.loreo.query.CacheQueryGenerator;
+import be.ugent.idlab.locers.cache.HashCacheStructure;
+import be.ugent.idlab.locers.cache.LOCERSStructureCache;
+import be.ugent.idlab.locers.query.AxiomIndexer;
+import be.ugent.idlab.locers.query.CacheQuery;
+import be.ugent.idlab.locers.query.CacheQueryGenerator2;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
@@ -16,13 +18,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
 
-/**
- * @author pbonte
- *
- */
-public class MaterializeTest {
+public class StaticDataTest {
 
 	static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	static OWLDataFactory dataFactory = manager.getOWLDataFactory();
@@ -33,53 +30,69 @@ public class MaterializeTest {
 		File inputOntologyFile = new File("resources/lubm.owl");
 		OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputOntologyFile);
 
-		LOREOMaterializeCache cache = new LOREOMaterializeCache();
+		LOCERSStructureCache cache = new LOCERSStructureCache();
 		cache.init(ontology);
-		cache.setCacheStructure(new MaterializeCacheStructure());
-//
-//		OWLObjectSomeValuesFrom objRestiriction = dataFactory.getOWLObjectSomeValuesFrom(
-//				dataFactory.getOWLObjectProperty("http://knowman.idlab.ugent.be/example#hasSupPart"),
-//				dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#BackSupport"));
-//		OWLObjectIntersectionOf objRestiriction2 = dataFactory.getOWLObjectIntersectionOf(
-//				dataFactory.getOWLObjectSomeValuesFrom(
-//						dataFactory.getOWLObjectProperty("http://knowman.idlab.ugent.be/example#hasSupPart"),
-//						dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#Leg")),
-//				dataFactory.getOWLObjectSomeValuesFrom(
-//						dataFactory.getOWLObjectProperty("http://knowman.idlab.ugent.be/example#hasSupPart"),
-//						dataFactory.getOWLClass("http://knowman.idlab.ugent.be/example#BackSupport")));
+		cache.setCacheStructure(new HashCacheStructure());
 
-		for(int i =0 ;i <1;i++) {
-			Set<OWLAxiom> events1 = generateStudentMultiple(1, 0+i, dataFactory);
-			Set<OWLAxiom> events2 = generateStudentMultiple(1, 5+i, dataFactory);
-			Set<OWLAxiom> events3 = generateStudentMultiple(1, 2000+i, dataFactory);
-			Set<OWLAxiom> events4 = generateStudentMultiple(1, 3000+i, dataFactory);
-			long time0 = System.currentTimeMillis();
-			Set<OWLAxiom> result = cache.check(events1);
-			long firstCheckTime = System.currentTimeMillis() - time0;
-			System.out.println(result.size());
-			long time1 = System.currentTimeMillis();
+		OWLClass test = dataFactory.getOWLClass("http://example.org/lubm.owl#Query8");
+	    for(OWLEquivalentClassesAxiom eq: ontology.getEquivalentClassesAxioms(test)){
+	    	for(OWLClassExpression cE: eq.getClassExpressions()){
+	    	if(!cE.toString().equals(test.toString())){
+	    		cache.addCQ(test, cE);
+	    	}
+	    	}
+	    	//cache.addCQ(test, );
+	    }
+		String iriDepartment = "http://www.Department2.University1.edu";
+		Set<OWLNamedIndividual> statics = new HashSet<OWLNamedIndividual>();
+		statics.add(manager.getOWLDataFactory().getOWLNamedIndividual(iriDepartment));
+	    Set<OWLAxiom> events1 = generateStudentMultiple(10, 0, dataFactory,1);
+	    Set<OWLAxiom> events2 = generateStudentMultiple(10, 200, dataFactory,2);
+		OWLOntology tempOnt = manager.createOntology();
 
-			Set<OWLAxiom> result2 = cache.check(events2);
-			System.out.println(result2.size());
-			System.out.println("Time Cache1: " + firstCheckTime);
-			System.out.println("Time Cache2: " + (System.currentTimeMillis() - time1));
-			time1 = System.currentTimeMillis();
-			cache.check(events3);
-			System.out.println("Time Cache3: " + (System.currentTimeMillis() - time1));
-			time1 = System.currentTimeMillis();
-			Set<OWLAxiom> result4= cache.check(events4);
-			//System.out.println(result4);
-			System.out.println("Time Cache4: " + (System.currentTimeMillis() - time1));
-			assertEquals(result.size(),result2.size());
+		manager.addAxioms(tempOnt, events1);
+		// first check the cache
+		Set<OWLAxiom> extended = tempOnt.individualsInSignature().map(ind -> ontology.classAssertionAxioms(ind))
+				.flatMap(Function.identity()).collect(Collectors.toSet());
+		extended.addAll(events1);
+		CacheQuery q = CacheQueryGenerator2.generate(extended,statics);
+		AxiomIndexer indexer = new AxiomIndexer();
+		try {
+			indexer.addAll(extended);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		boolean found = indexer.checkQuery(q);
+		System.out.println(found);
 
+		tempOnt = manager.createOntology();
+
+		manager.addAxioms(tempOnt, events2);
+		// first check the cache
+		extended = tempOnt.individualsInSignature().map(ind -> ontology.classAssertionAxioms(ind))
+				.flatMap(Function.identity()).collect(Collectors.toSet());
+		extended.addAll(events2);
+		AxiomIndexer indexer2 = new AxiomIndexer();
+		try {
+			indexer2.addAll(extended);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		found = indexer2.checkQuery(q);
+		System.out.println(found);
+
+
+//		cache.addCQ(test, objRestiriction);
+//		cache.addCQ(test2, objRestiriction2);
 
 	}
 
-	public static Set<OWLAxiom> generateStudent(int id,OWLDataFactory factory){
+	public static Set<OWLAxiom> generateStudent(int id,OWLDataFactory factory,int depId){
 		String iriGradStud = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent";
 		String iriMemberOf = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf";
-		String iriDepartment = "http://www.Department2.University1.edu";
+		String iriDepartment = "http://www.Department2.University"+depId+".edu";
 		
 		OWLClass gradStudClass = factory.getOWLClass(iriGradStud);
 		OWLObjectProperty memberOfProp = factory.getOWLObjectProperty(iriMemberOf);
@@ -92,24 +105,20 @@ public class MaterializeTest {
 		
 		return event;
 	}
-	public static Set<OWLAxiom> generateStudentMultiple(int number,int start,OWLDataFactory factory){
+	public static Set<OWLAxiom> generateStudentMultiple(int number,int start,OWLDataFactory factory,int depId){
 		String iriGradStud = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#UndergraduateStudent";
 		String iriMemberOf = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf";
-		String iriDepartment = "http://www.Department2.University1.edu";
-		String hasValue = "http://example.org/lubm.owl#hasValue";
+		String iriDepartment = "http://www.Department2.University"+depId+".edu";
 		Set<OWLAxiom> event = new HashSet<OWLAxiom>();
 		OWLClass gradStudClass = factory.getOWLClass(iriGradStud);
 		OWLObjectProperty memberOfProp = factory.getOWLObjectProperty(iriMemberOf);
 		OWLNamedIndividual departmentInd = factory.getOWLNamedIndividual(iriDepartment);
-		OWLDataProperty hasValueProp = factory.getOWLDataProperty(hasValue);
 		
 		for(int i = 0 ; i <number;i++){
 			
 		OWLNamedIndividual newStud = factory.getOWLNamedIndividual(iriGradStud+"Test_"+i+start);
 		event.add(factory.getOWLClassAssertionAxiom(gradStudClass, newStud));
 		event.add(factory.getOWLObjectPropertyAssertionAxiom(memberOfProp, newStud, departmentInd));
-		event.add(factory.getOWLDataPropertyAssertionAxiom(hasValueProp, newStud, 1+start));
-
 		}
 		
 		return event;
@@ -169,23 +178,8 @@ public class MaterializeTest {
 		return event;
 	}
 
-	public static void pupulateCache(LOREOStructureCache cache, OWLOntology ontology, Set<OWLAxiom> event) {
-		OWLOntology tempOnt;
-		try {
-			tempOnt = manager.createOntology();
-			manager.addAxioms(tempOnt, event);
-			Set<OWLAxiom> extended = tempOnt.individualsInSignature().map(ind -> ontology.classAssertionAxioms(ind))
-					.flatMap(Function.identity()).collect(Collectors.toSet());
 
-			extended.addAll(event);
 
-			CacheQuery q = CacheQueryGenerator.generate(extended);
-			cache.getCacheStructure().add(q, Collections.singleton(dataFactory.getOWLClass("owl:Thing")));
-		} catch (OWLOntologyCreationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-	}
 
 }

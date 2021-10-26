@@ -1,0 +1,238 @@
+@prefix : <http://be.idlab.ugent.be/covidBench#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://be.idlab.ugent.be/covidBench> .
+
+<http://be.idlab.ugent.be/covidBench> rdf:type owl:Ontology ;
+                                       owl:imports <http://www.w3.org/ns/ssn/> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://be.idlab.ugent.be/covidBench#hasLocation
+:hasLocation rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isLocationOf .
+
+
+###  http://be.idlab.ugent.be/covidBench#isLocationOf
+:isLocationOf rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://be.idlab.ugent.be/covidBench#CO2
+:CO2 rdf:type owl:Class ;
+     rdfs:subClassOf <http://www.w3.org/ns/sosa/ObservableProperty> .
+
+
+###  http://be.idlab.ugent.be/covidBench#CO2Observation
+:CO2Observation rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( <http://www.w3.org/ns/sosa/Observation>
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/ns/sosa/madeBySensor> ;
+                                                             owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://www.w3.org/ns/sosa/observes> ;
+                                                                                  owl:someValuesFrom :CO2
+                                                                                ]
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf <http://www.w3.org/ns/sosa/Observation> .
+
+
+###  http://be.idlab.ugent.be/covidBench#Choire
+:Choire rdf:type owl:Class ;
+        rdfs:subClassOf :HeavyExcerciseLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#ClassRoom
+:ClassRoom rdf:type owl:Class ;
+           rdfs:subClassOf :StandingSpeakingLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#CoronaAlertLocation
+:CoronaAlertLocation rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( :Location
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :isLocationOf ;
+                                                                  owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                                       owl:onProperty <http://www.w3.org/ns/sosa/madeObservation> ;
+                                                                                       owl:someValuesFrom :CoronaAlertObservation
+                                                                                     ]
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] ;
+                     rdfs:subClassOf :Location .
+
+
+###  http://be.idlab.ugent.be/covidBench#CoronaAlertObservation
+:CoronaAlertObservation rdf:type owl:Class ;
+                        rdfs:subClassOf <http://www.w3.org/ns/sosa/Observation> .
+
+
+###  http://be.idlab.ugent.be/covidBench#CourtRoom
+:CourtRoom rdf:type owl:Class ;
+           rdfs:subClassOf :StandingSpeakingLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#HeavyExcerciseCoronaAlertObservation
+:HeavyExcerciseCoronaAlertObservation rdf:type owl:Class ;
+                                      owl:equivalentClass [ owl:intersectionOf ( :CO2Observation
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty <http://www.w3.org/ns/sosa/madeBySensor> ;
+                                                                                   owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                                                        owl:onProperty :hasLocation ;
+                                                                                                        owl:someValuesFrom :StandingSpeakingLocation
+                                                                                                      ]
+                                                                                 ]
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty <http://www.w3.org/ns/sosa/hasSimpleResult> ;
+                                                                                   owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                        owl:onDatatype xsd:int ;
+                                                                                                        owl:withRestrictions ( [ xsd:minExclusive "700"^^xsd:int
+                                                                                                                               ]
+                                                                                                                             )
+                                                                                                      ]
+                                                                                 ]
+                                                                               ) ;
+                                                            rdf:type owl:Class
+                                                          ] ;
+                                      rdfs:subClassOf :CoronaAlertObservation .
+
+
+###  http://be.idlab.ugent.be/covidBench#HeavyExcerciseLocation
+:HeavyExcerciseLocation rdf:type owl:Class ;
+                        rdfs:subClassOf :Location .
+
+
+###  http://be.idlab.ugent.be/covidBench#Library
+:Library rdf:type owl:Class ;
+         rdfs:subClassOf :RestingBreathingLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#Location
+:Location rdf:type owl:Class .
+
+
+###  http://be.idlab.ugent.be/covidBench#Office
+:Office rdf:type owl:Class ;
+        rdfs:subClassOf :RestingBreathingLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#Reception
+:Reception rdf:type owl:Class ;
+           rdfs:subClassOf :StandingSpeakingLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#RestingBreathingCoronaAlertObservation
+:RestingBreathingCoronaAlertObservation rdf:type owl:Class ;
+                                        owl:equivalentClass [ owl:intersectionOf ( :CO2Observation
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://www.w3.org/ns/sosa/madeBySensor> ;
+                                                                                     owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                                                          owl:onProperty :hasLocation ;
+                                                                                                          owl:someValuesFrom :RestingBreathingLocation
+                                                                                                        ]
+                                                                                   ]
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://www.w3.org/ns/sosa/hasSimpleResult> ;
+                                                                                     owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                          owl:onDatatype xsd:int ;
+                                                                                                          owl:withRestrictions ( [ xsd:minExclusive "1000"^^xsd:int
+                                                                                                                                 ]
+                                                                                                                               )
+                                                                                                        ]
+                                                                                   ]
+                                                                                 ) ;
+                                                              rdf:type owl:Class
+                                                            ] ;
+                                        rdfs:subClassOf :CoronaAlertObservation .
+
+
+###  http://be.idlab.ugent.be/covidBench#RestingBreathingLocation
+:RestingBreathingLocation rdf:type owl:Class ;
+                          rdfs:subClassOf :Location .
+
+
+###  http://be.idlab.ugent.be/covidBench#SpinningClass
+:SpinningClass rdf:type owl:Class ;
+               rdfs:subClassOf :HeavyExcerciseLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#Stadium
+:Stadium rdf:type owl:Class ;
+         rdfs:subClassOf :HeavyExcerciseLocation .
+
+
+###  http://be.idlab.ugent.be/covidBench#StandingSpeakingCoronaAlertObservation
+:StandingSpeakingCoronaAlertObservation rdf:type owl:Class ;
+                                        owl:equivalentClass [ owl:intersectionOf ( :CO2Observation
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://www.w3.org/ns/sosa/madeBySensor> ;
+                                                                                     owl:someValuesFrom [ rdf:type owl:Restriction ;
+                                                                                                          owl:onProperty :hasLocation ;
+                                                                                                          owl:someValuesFrom :HeavyExcerciseLocation
+                                                                                                        ]
+                                                                                   ]
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://www.w3.org/ns/sosa/hasSimpleResult> ;
+                                                                                     owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                          owl:onDatatype xsd:int ;
+                                                                                                          owl:withRestrictions ( [ xsd:minExclusive "100"^^xsd:int
+                                                                                                                                 ]
+                                                                                                                               )
+                                                                                                        ]
+                                                                                   ]
+                                                                                 ) ;
+                                                              rdf:type owl:Class
+                                                            ] ;
+                                        rdfs:subClassOf :CoronaAlertObservation .
+
+
+###  http://be.idlab.ugent.be/covidBench#StandingSpeakingLocation
+:StandingSpeakingLocation rdf:type owl:Class ;
+                          rdfs:subClassOf :Location .
+
+
+###  http://be.idlab.ugent.be/covidBench#Subway
+:Subway rdf:type owl:Class ;
+        rdfs:subClassOf :RestingBreathingLocation .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://be.idlab.ugent.be/covidBench#co2
+:co2 rdf:type owl:NamedIndividual ,
+              :CO2 .
+
+
+###  http://be.idlab.ugent.be/covidBench#location
+:location rdf:type owl:NamedIndividual ,
+                   :Stadium .
+
+
+###  http://be.idlab.ugent.be/covidBench#obs
+:obs rdf:type owl:NamedIndividual ,
+              <http://www.w3.org/ns/sosa/Observation> ;
+     <http://www.w3.org/ns/sosa/madeBySensor> :sensor ;
+     <http://www.w3.org/ns/sosa/hasSimpleResult> "101"^^xsd:int .
+
+
+###  http://be.idlab.ugent.be/covidBench#sensor
+:sensor rdf:type owl:NamedIndividual ,
+                 <http://www.w3.org/ns/sosa/Sensor> ;
+        :hasLocation :location ;
+        <http://www.w3.org/ns/sosa/observes> :co2 .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
